@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserRegister } from '../../models/userRegister.model';
+import { first } from 'rxjs/operators';
+
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -10,36 +11,51 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
   registerForm: FormGroup;
-  errorMessage: string;
+  loading = false;
+  submitted = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
-              private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) { 
+    if (this.authService.currentUserValue) { 
+        this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit(): void {
-    this.initForm();
-  }
-
-  initForm() {
     this.registerForm = this.formBuilder.group({
-      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      birthdate: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      passwd: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
-    })
+      LastName: ['', [Validators.required, Validators.maxLength(50)]],
+      FirstName: ['', [Validators.required, Validators.maxLength(50)]],
+      Birthdate: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.maxLength(320)]],
+      Passwd: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
+    });
+    // this.initForm();
   }
 
-  // token utiliser un intercepteur
-
+  get f() { return this.registerForm.controls; }
 
   onSubmit() {
-    if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value as UserRegister).subscribe(data => {
-        console.log(data);
-      })
-    }
+      this.submitted = true;
+
+      if (this.registerForm.invalid) {
+          return;
+      }
+
+      this.loading = true;
+      this.authService.register(this.registerForm.value)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  this.alertService.success('Registration successful', true);
+                  this.router.navigate(['/auth/login']);
+              },
+              error => {
+                  this.alertService.error(error);
+                  this.loading = false;
+              });
   }
 }

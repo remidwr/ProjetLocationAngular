@@ -1,6 +1,6 @@
 import { BrowserModule, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -22,11 +22,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { LoginComponent } from './modules/auth/components/login/login.component';
-import { RegisterComponent } from './modules/auth/components/register/register.component';
-import { SchematicsComponent } from './schematics/schematics.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { AuthModule } from './modules/auth/auth.module';
+import { JwtInterceptor } from './modules/auth/helpers/jwt.interceptor';
+import { ErrorInterceptor } from './modules/auth/helpers/error.interceptor';
 
 @NgModule({
   schemas: [
@@ -35,8 +33,7 @@ import { AuthModule } from './modules/auth/auth.module';
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
-    SchematicsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -60,9 +57,11 @@ import { AuthModule } from './modules/auth/auth.module';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    // AuthModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

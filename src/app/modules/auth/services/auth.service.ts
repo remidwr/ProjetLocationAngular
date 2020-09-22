@@ -22,21 +22,17 @@ export class AuthService {
         return this.currentUserSubject.value;
     }
 
-    register(user: User): Observable<any>  {
-        return this.http.post(`${environment.apiUrl}/api/auth/register`, user);
+    register(firstName: string, lastName: string, birthdate: Date, email: string, passwd : string): Observable<any>  {
+        return this.http.post(`${environment.apiUrl}/api/auth/register`, { firstName, lastName, birthdate, email, passwd });
       }
 
-    login(Email: string, Passwd: string) {
-        console.log("test service start")
-        return this.http.post<any>(`${environment.apiUrl}/api/auth/login`, { Email, Passwd })
+    login(email: string, passwd: string) {
+        return this.http.post<any>(`${environment.apiUrl}/api/auth/login`, { email, passwd })
         .pipe(map(user => {
-            console.log(user)
             if (user && user.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
-                console.log("Test entre service");
             }
-            console.log("test service end")
             return user;
         }))
     }

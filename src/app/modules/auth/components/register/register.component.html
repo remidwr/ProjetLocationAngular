@@ -1,44 +1,69 @@
-<h2>S'enregistrer</h2>
-<mat-form-field [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <mat-label for="FirstName">Prénom</mat-label>
-        <input matInput formControlName="FirstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" />
-        <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
-            <div *ngIf="f.FirstName.errors.required">FirstName is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-label for="LastName">Nom de famille</mat-label>
-        <input matInput formControlName="LastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }" />
-        <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
-            <div *ngIf="f.LastName.errors.required">LastName is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-label for="Birthdate">Date de naissance</mat-label>
-        <input matInput type="date" formControlName="Birthdate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Birthdate.errors }" />
-        <div *ngIf="submitted && f.Birthdate.errors" class="invalid-feedback">
-            <div *ngIf="f.Birthdate.errors.required">Birthdate is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-label for="Email">Email</mat-label>
-        <input matInput type="text" formControlName="Email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
-        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-            <div *ngIf="f.Email.errors.required">Email is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-label for="Passwd">Mot de passe</mat-label>
-        <input matInput type="Passwd" formControlName="Passwd" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Passwd.errors }" />
-        <div *ngIf="submitted && f.Passwd.errors" class="invalid-feedback">
-            <div *ngIf="f.Passwd.errors.required">Password is required</div>
-            <div *ngIf="f.Passwd.errors.minlength">Password must be at least 8 characters</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">S'enregistrer</button>
-        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        <a routerLink="/auth/login" class="btn btn-link">Annuler</a>
-    </div>
-</mat-form-field>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <mat-card class="register-card">
+        <mat-card-content>
+                <mat-card-title>Enregitrez-vous</mat-card-title>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <input matInput placeholder="Prénom" formControlName="firstName"/>
+                            <mat-error *ngIf="registerForm.controls['firstName'].hasError('required')">
+                                Le prénom est <strong>obligatoire</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <input matInput placeholder="Nom de famille" formControlName="lastName"/>
+                            <mat-error *ngIf="registerForm.controls['lastName'].hasError('required')">
+                                Le nom de famille est <strong>obligatoire</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <input matInput placeholder="Date de naissance" [matDatepicker]="picker" formControlName="birthdate"/>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="registerForm.controls['birthdate'].hasError('required')">
+                                La date de naissance est <strong>obligatoire</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <input matInput placeholder="Email" formControlName="email"/>
+                            <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                                Le prénom est <strong>obligatoire</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <input matInput type="password" placeholder="Mot de passe" formControlName="passwd"/>
+                            <mat-error *ngIf="registerForm.controls['passwd'].hasError('required')">
+                                Le mot de passe est <strong>obligatoire</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button mat-raised-button color="primary" [disabled]="registerForm.invalid">S'enregistrer</button>
+                </div>
+                <br>
+                <mat-divider></mat-divider>
+                <br>
+                <div>
+                    <h3>Déjà un compte ? Identifiez-vous ici</h3>
+                    <button mat-raised-button color="primary" type="submit" routerLink="/auth/login">S'identifier</button>
+                </div>
+        </mat-card-content>
+    </mat-card>
+</form>

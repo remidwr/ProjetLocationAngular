@@ -1,23 +1,24 @@
 <mat-toolbar color="primary" class="expanded-toolbar">
   <span>
-    <button mat-button routerLink="home"><mat-icon>home</mat-icon></button>
+    <button mat-button routerLink="/home"><mat-icon>home</mat-icon></button>
     <button mat-button routerLink="/">Location</button>
+    <button mat-button routerLink="/schematics">Schematics</button> 
   </span>
 <div fxLayout="row" fxShow="false" fxShow.gt-sm>
   <button mat-button routerLink="auth/login" *ngIf="!currentUser">
     <mat-icon>power_settings_new</mat-icon>
-    Se connecter
+    S'identifier
   </button>
   <button mat-button routerLink="auth/register" *ngIf="!currentUser">
     <mat-icon>how_to_reg</mat-icon>
     S'enregistrer
   </button>
-  <button mat-button *ngIf="currentUser" >
+  <button mat-button *ngIf="currentUser" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     Se déconnecter
   </button>
 </div>
-<button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+<button mat-button [mat-menu-trigger-for]="menu" class="button" fxHide="false" fxHide.gt-sm>
   <mat-icon>menu</mat-icon>
 </button>
 </mat-toolbar>
@@ -28,13 +29,13 @@
 </button>
 <button mat-menu-item routerLink="auth/login" *ngIf="!currentUser">
   <mat-icon>power_settings_new</mat-icon>
-  Se connecter
+  S'identifier
 </button>
 <button mat-menu-item routerLink="auth/register" *ngIf="!currentUser">
   <mat-icon>how_to_reg</mat-icon>
   S'enregistrer
 </button>
-<button mat-menu-item *ngIf="currentUser"  (click)="logout()" >
+<button mat-menu-item *ngIf="currentUser" (click)="logout()" >
   <mat-icon>exit_to_app</mat-icon>
   Se déconnecter
 </button>

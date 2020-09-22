@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService
   ) { 
     if (this.authService.currentUserValue) { 
         this.router.navigate(['/']);
@@ -27,11 +29,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      LastName: ['', [Validators.required, Validators.maxLength(50)]],
-      FirstName: ['', [Validators.required, Validators.maxLength(50)]],
-      Birthdate: ['', Validators.required],
-      Email: ['', [Validators.required, Validators.maxLength(320)]],
-      Passwd: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      birthdate: ['', Validators.required],
+      email: ['', [Validators.required, Validators.maxLength(320)]],
+      passwd: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
     });
     // this.initForm();
   }
@@ -46,7 +48,7 @@ export class RegisterComponent implements OnInit {
       }
 
       this.loading = true;
-      this.authService.register(this.registerForm.value)
+      this.authService.register(this.f.firstName.value, this.f.lastName.value, this.f.birthdate.value, this.f.email.value, this.f.passwd.value)
           .pipe(first())
           .subscribe(
               data => {

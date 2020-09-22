@@ -22,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
+import { SchematicsComponent } from './Schematics/schematics.component'; 
 import { MatRadioModule } from '@angular/material/radio';
 import { JwtInterceptor } from './modules/auth/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './modules/auth/helpers/error.interceptor';
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './modules/auth/helpers/error.interceptor';
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    SchematicsComponent
   ],
   imports: [
     BrowserModule,

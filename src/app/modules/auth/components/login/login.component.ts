@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
       if (this.loginForm.invalid) {
           return;
       }
-      console.log("test component")
       this.loading = true;
       this.authService.login(this.f.email.value, this.f.passwd.value)
           .pipe(first())

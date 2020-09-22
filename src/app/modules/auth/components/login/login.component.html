@@ -1,27 +1,39 @@
-<mat-card>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-card class="login-card">
     <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <H2>Connection</H2>
-        <!-- <mat-error *ngIf="submitted && f.Email.errors">
-          {{this.error}}
-        </mat-error> -->
-        <mat-form-field>
-          <mat-label>Login</mat-label>
-          <input matInput placeholder="Login" formControlName="email"/>
-          <!-- <mat-error *ngIf="f.Email.errors.required">
-            Le login est obligatoire.
-          </mat-error> -->
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Mot de passe</mat-label>
-          <input matInput placeholder="Mot de passe" formControlName="passwd" required/>
-          <!-- <mat-error *ngIf="f.Passwd.errors.required">
-            Le mot de passe est obligatoire.
-          </mat-error> -->
-        </mat-form-field>
-        
-        <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid">Confirmer</button>
-      </form>
+        <mat-card-title>Identifiez-vous</mat-card-title>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Identifiant" formControlName="email"/>
+                <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                  L'identifiant est <strong>obligatoire</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width-input">
+                <input matInput type="password" placeholder="Mot de passe" formControlName="passwd"/>
+                <mat-error *ngIf="loginForm.controls['passwd'].hasError('required')">
+                  Le mot de passe est <strong>obligatoire</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="from-group">
+            <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
+              Confirmer
+            </button>
+          </div>
+          <br>
+          <mat-divider></mat-divider>
+          <br>
+          <div>
+            <h3>Pas encore de compte ? Enregistrez-vous ici</h3>
+            <button mat-raised-button color="primary" type="submit" routerLink="/auth/register">S'enregistrer</button>
+          </div>
     </mat-card-content>
-   
   </mat-card>
+</form>

@@ -3,6 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,15 +18,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { SchematicsComponent } from './Schematics/schematics.component'; 
-import { MatRadioModule } from '@angular/material/radio';
-import { JwtInterceptor } from './modules/auth/helpers/jwt.interceptor';
-import { ErrorInterceptor } from './modules/auth/helpers/error.interceptor';
+import { SchematicsComponent } from './Schematics/schematics.component';
+import { FourOfourComponent } from './components/four-ofour/four-ofour.component'; 
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 @NgModule({
   schemas: [
@@ -35,7 +37,8 @@ import { ErrorInterceptor } from './modules/auth/helpers/error.interceptor';
     AppComponent,
     HomeComponent,
     AboutComponent,
-    SchematicsComponent
+    SchematicsComponent,
+    FourOfourComponent
   ],
   imports: [
     BrowserModule,
@@ -59,9 +62,10 @@ import { ErrorInterceptor } from './modules/auth/helpers/error.interceptor';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatRadioModule,
+    MatGridListModule,
+    LayoutModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

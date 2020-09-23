@@ -1,0 +1,8 @@
+<mat-card>
+    <mat-card-content>
+        <h4>Listes des utilisateurs</h4>
+        <mat-list *ngIf="users">
+            <mat-list-item *ngFor="let user of users">{{ user.firstName }} {{ user.lastName }}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

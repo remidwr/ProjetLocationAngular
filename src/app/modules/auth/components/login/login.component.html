@@ -26,6 +26,7 @@
             <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
               Confirmer
             </button>
+            <mat-error *ngIf="error">{{ error | json }}</mat-error>
           </div>
           <br>
           <mat-divider></mat-divider>

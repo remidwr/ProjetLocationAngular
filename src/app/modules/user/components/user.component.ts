@@ -10,17 +10,10 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  loading = false;
-  users: UserSimple[];
 
-  constructor(private _userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.loading = true;
-    this._userService.getAll().pipe(first()).subscribe(users => {
-      this.loading = false;
-      this.users = users;
-    })
   }
 
 

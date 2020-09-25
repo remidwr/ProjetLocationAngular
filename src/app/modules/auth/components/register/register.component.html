@@ -5,56 +5,62 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width-input">
-                            <input matInput placeholder="Prénom" formControlName="firstName"/>
-                            <mat-error *ngIf="registerForm.controls['firstName'].hasError('required')">
-                                Le prénom est <strong>obligatoire</strong>
-                            </mat-error>
+                            <mat-label>Prénom</mat-label>
+                            <input matInput maxlength="50" formControlName="firstName"/>
+                            <mat-error>{{errors.firstName}}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width-input">
-                            <input matInput placeholder="Nom de famille" formControlName="lastName"/>
-                            <mat-error *ngIf="registerForm.controls['lastName'].hasError('required')">
-                                Le nom de famille est <strong>obligatoire</strong>
-                            </mat-error>
+                            <mat-label>Nom de famille</mat-label>
+                            <input matInput maxlength="50" formControlName="lastName"/>
+                            <mat-error>{{errors.lastName}}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width-input">
-                            <input matInput placeholder="Date de naissance" [matDatepicker]="picker" formControlName="birthdate"/>
+                            <mat-label>Date de naissance</mat-label>
+                            <input matInput placeholder="01/01/2020" [matDatepicker]="picker" formControlName="birthdate"/>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="registerForm.controls['birthdate'].hasError('required')">
-                                La date de naissance est <strong>obligatoire</strong>
-                            </mat-error>
+                            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                            <mat-error>{{errors.birthdate}}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width-input">
-                            <input matInput placeholder="Email" formControlName="email"/>
-                            <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
-                                Le prénom est <strong>obligatoire</strong>
-                            </mat-error>
+                            <mat-label>Email</mat-label>
+                            <input matInput maxlength="320" placeholder="email@example.com" formControlName="email"/>
+                            <mat-error>{{errors.email}}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="full-width-input">
-                            <input matInput type="password" placeholder="Mot de passe" formControlName="passwd"/>
-                            <mat-error *ngIf="registerForm.controls['passwd'].hasError('required')">
-                                Le mot de passe est <strong>obligatoire</strong>
-                            </mat-error>
+                            <mat-label>Mot de passe</mat-label>
+                            <input matInput maxlength="20" type="password" formControlName="passwd"/>
+                            <mat-icon matSuffix>visibility</mat-icon>
+                            <mat-error>{{errors.passwd}}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Confirmer mot de passe</mat-label>
+                            <input matInput maxlength="20" type="password" formControlName="confirmPasswd"/>
+                            <mat-error>{{errors.confirmPasswd}}</mat-error>
+                            <mat-error *ngIf="f.confirmPasswd.errors?.mustMatch">Le mot de passe de correspond pas</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
                     <button mat-raised-button color="primary" [disabled]="registerForm.invalid">S'enregistrer</button>
                 </div>
                 <br>

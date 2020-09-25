@@ -4,3 +4,12 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: "Helvetica Neue", Roboto, sans-serif;}
 
+.colored-snackbar {
+    background: #673ab7;
+    color: white;
+}
+
+.red-snackbar {
+    background: #FF4500;
+    color: white;
+}

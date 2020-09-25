@@ -30,7 +30,6 @@ export class AuthService {
         return this.http.post<any>(`${environment.apiUrl}/api/auth/login`, { email, passwd })
             .pipe(map(user => {
             if (user && user.token) {
-                console.log(user);
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this._currentUserSubject.next(user);
             }

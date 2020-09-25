@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
 
   { path: 'notFound', component: FourOfourComponent },
+  { path: 'shared', loadChildren: () => import('./modules/shared/shared.module').then(m => m.SharedModule) },
   { path: '**', redirectTo: '/notFound'}
 ];
 

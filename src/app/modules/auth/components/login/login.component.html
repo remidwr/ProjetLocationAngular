@@ -1,32 +1,30 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-card class="login-card">
     <mat-card-content>
-        <mat-card-title>Identifiez-vous</mat-card-title>
+        <mat-card-title class="space">Identifiez-vous</mat-card-title>
           <div class="row">
             <div class="col">
               <mat-form-field class="full-width-input">
-                <input matInput placeholder="Identifiant" formControlName="email"/>
-                <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
-                  L'identifiant est <strong>obligatoire</strong>
-                </mat-error>
+                <mat-label>Identifiant</mat-label>
+                <input matInput maxlength="320" placeholder="email@example.com" formControlName="email"/>
+                <mat-error>{{ errors.email }}</mat-error>
               </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <mat-form-field class="full-width-input">
-                <input matInput type="password" placeholder="Mot de passe" formControlName="passwd"/>
-                <mat-error *ngIf="loginForm.controls['passwd'].hasError('required')">
-                  Le mot de passe est <strong>obligatoire</strong>
-                </mat-error>
+                <mat-label>Mot de passe</mat-label>
+                <mat-icon matSuffix>visibility</mat-icon>
+                <input matInput maxlength="20" type="password" formControlName="passwd"/>
+                <mat-error>{{ errors.passwd }}</mat-error>
               </mat-form-field>
             </div>
           </div>
-          <div class="from-group">
+          <div>
             <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
               Confirmer
             </button>
-            <mat-error *ngIf="error">{{ error | json }}</mat-error>
           </div>
           <br>
           <mat-divider></mat-divider>

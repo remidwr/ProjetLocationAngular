@@ -3,8 +3,7 @@
     <button mat-button routerLink="/home">
       <mat-icon>home</mat-icon>
     </button>
-    <button mat-button routerLink="/">Location</button>
-    <button mat-button routerLink="/schematics">Schematics</button> 
+    <button mat-button routerLink="/">Créer une annonce</button>
     <button mat-button routerLink="/users">Utilisateurs</button> 
   </span>
 <div fxLayout="row" fxShow="false" fxShow.gt-sm>
@@ -12,10 +11,6 @@
     <mat-icon>power_settings_new</mat-icon>
     S'identifier
   </button>
-  <!-- <button mat-button routerLink="auth/register" *ngIf="!currentUser">
-    <mat-icon>how_to_reg</mat-icon>
-    S'enregistrer
-  </button> -->
   <button mat-button *ngIf="currentUser" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     Se déconnecter
@@ -34,13 +29,11 @@
   <mat-icon>power_settings_new</mat-icon>
   S'identifier
 </button>
-<!-- <button mat-menu-item routerLink="auth/register" *ngIf="!currentUser">
-  <mat-icon>how_to_reg</mat-icon>
-  S'enregistrer
-</button> -->
 <button mat-menu-item *ngIf="currentUser" (click)="logout()" >
   <mat-icon>exit_to_app</mat-icon>
   Se déconnecter
 </button>
 </mat-menu>
+<div>
 <router-outlet></router-outlet>
+</div>

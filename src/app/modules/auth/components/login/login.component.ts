@@ -5,7 +5,8 @@ import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../services/auth.service';
 import { ErrorHandler } from 'src/app/helpers/error.handler';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'auth-login',
@@ -16,6 +17,20 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
   errors: any = {};
+  hide = true;
+
+  spinnerButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: 'Confirmer',
+    spinnerSize: 19,
+    raised: true,
+    stroked: false,
+    buttonColor: 'primary',
+    spinnerColor: 'primary',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate'
+  }
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -25,7 +40,6 @@ export class LoginComponent implements OnInit {
     private _errorHandler: ErrorHandler,
     private _snackBarService: MatSnackBar
   ) {
-    // renvoie vers '/' si déjà loggué
     if (this._authService.currentUserValue) {
       this._router.navigate(['/home']);
     }
@@ -38,19 +52,13 @@ export class LoginComponent implements OnInit {
     });
 
     this._errorHandler.handleErrors(this.loginForm, this.errors);
-    
-    // récupère l'URL du paramètre de la route ou par défaut '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/home';
   }
 
-  // getter pour un accès plus facile aux champs du formulaire
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-      // s'arrête ici si le formulaire n'est pas valide
-      if (this.loginForm.invalid) {
-          return;
-      }
+      this.spinnerButtonOptions.active = true;
       this._authService.login(this.f.email.value, this.f.passwd.value)
           .pipe(first())
           .subscribe(
@@ -58,7 +66,8 @@ export class LoginComponent implements OnInit {
                 this._router.navigate([this.returnUrl]);
               },
               error => {
-                this._snackBarService.open(error, 'Annuler', { panelClass: ['red-snackbar'] });
+                this._snackBarService.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
+                this.spinnerButtonOptions.active = false;
               });
   }
 }

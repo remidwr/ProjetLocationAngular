@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { SchematicsComponent } from './Schematics/schematics.component';
 import { FourOfourComponent } from './components/four-ofour/four-ofour.component'; 
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -22,7 +21,6 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     AppComponent,
     HomeComponent,
     AboutComponent,
-    SchematicsComponent,
     FourOfourComponent,
   ],
   imports: [

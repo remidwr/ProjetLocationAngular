@@ -15,6 +15,10 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 401) {
                 this._authService.logout();
             }
+            else if (err.status === 0) {
+                const error = "Le serveur est déconnecté"
+                return throwError(error);
+            }
             
             const error = err.error.detail || err.error.message;
             return throwError(error);

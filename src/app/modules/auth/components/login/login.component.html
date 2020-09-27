@@ -15,16 +15,16 @@
             <div class="col">
               <mat-form-field class="full-width-input">
                 <mat-label>Mot de passe</mat-label>
-                <mat-icon matSuffix>visibility</mat-icon>
-                <input matInput maxlength="20" type="password" formControlName="passwd"/>
+                <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="passwd"/>
+                <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 <mat-error>{{ errors.passwd }}</mat-error>
               </mat-form-field>
             </div>
           </div>
           <div>
-            <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
-              Confirmer
-            </button>
+            <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="loginForm.invalid"></mat-spinner-button>
           </div>
           <br>
           <mat-divider></mat-divider>

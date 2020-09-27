@@ -10,6 +10,7 @@ import { ErrorHandler } from '../../../../helpers/error.handler';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 import { AuthService } from '../../services/auth.service';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'auth-register',
@@ -28,7 +29,21 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errors: any = {};
-  startDate = new Date(1990, 0, 1);
+  startDate = new Date(1990, 1, 1);
+  hide = true;
+
+  spinnerButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: "S'enregistrer",
+    spinnerSize: 19,
+    raised: true,
+    stroked: false,
+    buttonColor: 'primary',
+    spinnerColor: 'primary',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate'
+  }
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -63,10 +78,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-      if (this.registerForm.invalid) {
-          return;
-      }
-
+      this.spinnerButtonOptions.active = true;
       this._authService.register(this.f.firstName.value, this.f.lastName.value, this.f.birthdate.value, this.f.email.value, this.f.passwd.value)
           .pipe(first())
           .subscribe(
@@ -74,7 +86,8 @@ export class RegisterComponent implements OnInit {
                   this._router.navigate(['/auth/login']);
               },
               error => {
-                  this._snackBar.open(error, 'Annuler', { panelClass: ['red-snackbar'] });
+                  this._snackBar.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
+                  this.spinnerButtonOptions.active = false;
               });
   }
 }

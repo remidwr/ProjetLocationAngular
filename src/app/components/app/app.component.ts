@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/modules/auth/models/role.model';
 import { User } from '../../modules/auth/models/user.model';
 import { AuthService } from '../../modules/auth/services/auth.service';
 
@@ -9,16 +10,24 @@ import { AuthService } from '../../modules/auth/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  currentUser : User;
+  user : User;
 
   constructor(
     private _router: Router,
     private _authService: AuthService
   ) {
-    this._authService.currentUser.subscribe(x => this.currentUser = x);
+    this._authService.user.subscribe(x => this.user = x);
   }
 
   ngOnInit(): void {
+  }
+
+  get isAdmin() {
+    return this.user && this.user.roleName === Role.Admin;
+  }
+
+  get isSuperAdmin() {
+    return this.user && this.user.roleName === Role.SuperAdmin;
   }
 
   logout() {

@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     private _errorHandler: ErrorHandler,
     private _snackBar: MatSnackBar
   ) { 
-    if (this._authService.currentUserValue) { 
+    if (this._authService.userValue) { 
         this._router.navigate(['/home']);
     }
   }

@@ -16,7 +16,7 @@ export class UserService {
     private _http: HttpClient,
     private _authService: AuthService,
     ) {
-      this._authService.currentUser.subscribe(data => this.token = data.token);
+      this._authService.user.subscribe(data => this.token = data.token);
     }
 
   getAll() {

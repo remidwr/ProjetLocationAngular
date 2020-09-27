@@ -1,3 +1,5 @@
+import { Role } from './role.model';
+
 export class User {
     id: number;
     lastName: string;
@@ -5,5 +7,6 @@ export class User {
     birthdate: Date;
     email: string;
     passwd: string;
-    token: string;
+    roleName: Role;
+    token?: string;
 }

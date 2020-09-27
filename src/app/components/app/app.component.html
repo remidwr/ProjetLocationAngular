@@ -7,11 +7,11 @@
     <button mat-button routerLink="/users">Utilisateurs</button> 
   </span>
 <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-  <button mat-button routerLink="auth/login" *ngIf="!currentUser">
+  <button mat-button routerLink="auth/login" *ngIf="!user">
     <mat-icon>power_settings_new</mat-icon>
     S'identifier
   </button>
-  <button mat-button *ngIf="currentUser" (click)="logout()">
+  <button mat-button *ngIf="user" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     Se déconnecter
   </button>
@@ -25,11 +25,11 @@
   <mat-icon>home</mat-icon>
   Acceuil
 </button>
-<button mat-menu-item routerLink="auth/login" *ngIf="!currentUser">
+<button mat-menu-item routerLink="auth/login" *ngIf="!user">
   <mat-icon>power_settings_new</mat-icon>
   S'identifier
 </button>
-<button mat-menu-item *ngIf="currentUser" (click)="logout()" >
+<button mat-menu-item *ngIf="user" (click)="logout()" >
   <mat-icon>exit_to_app</mat-icon>
   Se déconnecter
 </button>

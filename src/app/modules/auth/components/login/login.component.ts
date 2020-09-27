@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     private _errorHandler: ErrorHandler,
     private _snackBarService: MatSnackBar
   ) {
-    if (this._authService.currentUserValue) {
+    if (this._authService.userValue) {
       this._router.navigate(['/home']);
     }
   }

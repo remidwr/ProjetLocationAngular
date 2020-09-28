@@ -7,10 +7,10 @@ import { first } from 'rxjs/operators';
 import { MustMatch } from '../../helpers/mustmatch.validator';
 import { ErrorHandler } from '../../../../helpers/error.handler';
 
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 import { AuthService } from '../../services/auth.service';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'auth-register',

@@ -9,18 +9,21 @@ import { AuthService } from '../../auth/services/auth.service';
   providedIn: 'root'
 })
 export class UserService {
-
-  token: string;
+  token = "";
 
   constructor(
     private _http: HttpClient,
     private _authService: AuthService,
     ) {
-      this._authService.user.subscribe(data => this.token = data.token);
+      this._authService.user.subscribe(data => {
+        if (data == null || data.token == null) 
+          return;
+        this.token = data.token;
+      })
     }
 
   getAll() {
-    return this._http.get<UserSimple[]>(`${environment.apiUrl}/api/user`, this.HttpOptions(this.token));
+    return this._http.get<UserSimple[]>(`${environment.apiUrl}/user`, this.HttpOptions(this.token));
   }
 
   private HttpOptions(token: string){

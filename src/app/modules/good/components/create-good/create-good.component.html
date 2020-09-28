@@ -1,0 +1,91 @@
+<form [formGroup]="goodForm" (ngSubmit)="onSubmit()">
+    <mat-card class="good-card">
+        <mat-card-content>
+                <mat-card-title>Ajoutez votre annonce</mat-card-title>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Titre de la location</mat-label>
+                            <input matInput maxlength="50" formControlName="name"/>
+                            <mat-error>{{errors.name}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="description"></textarea>
+                            <mat-error>{{errors.description}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Etat du produit</mat-label>
+                            <input matInput formControlName="state"/>
+                            <mat-error>{{errors.state}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Montant par jour</mat-label>
+                            <input matInput formControlName="amountPerDay"/>
+                            <mat-error>{{errors.amountPerDay}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Rue</mat-label>
+                            <input matInput formControlName="street"/>
+                            <mat-error>{{errors.street}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Numéro de rue</mat-label>
+                            <input matInput formControlName="number"/>
+                            <mat-error>{{errors.number}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Code postal</mat-label>
+                            <input matInput formControlName="postCode"/>
+                            <mat-error>{{errors.postCode}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Ville</mat-label>
+                            <input matInput formControlName="city"/>
+                            <mat-error>{{errors.city}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Image</mat-label>
+                            <input matInput formControlName="picture"/>
+                            <mat-error>{{errors.pictrue}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="goodForm.invalid"></mat-spinner-button>
+                </div>
+        </mat-card-content>
+    </mat-card>
+</form>

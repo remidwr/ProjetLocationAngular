@@ -6,7 +6,6 @@ import { UserComponent } from '../user/components/user.component';
 import { UserService } from './services/user.service';
 import { GetAllUserComponent } from './components/get-all-user/get-all-user.component';
 import { SharedModule } from '../shared/shared.module';
-import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({

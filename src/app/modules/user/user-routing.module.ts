@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../auth/guards/auth.guard';
+import { Role } from '../auth/models/role.model';
 
-import { UserComponent } from '../user/components/user.component';
+import { GetAllUserComponent } from './components/get-all-user/get-all-user.component';
 
 const routes: Routes = [
-  { path: '',
-    component: UserComponent 
+  { 
+    path: 'users',
+    component: GetAllUserComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.SuperAdmin] }
   }
 ];
 

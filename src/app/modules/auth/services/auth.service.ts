@@ -27,11 +27,11 @@ export class AuthService {
     }
 
     register(firstName: string, lastName: string, birthdate: Date, email: string, passwd : string): Observable<any>  {
-        return this._http.post(`${environment.apiUrl}/api/auth/register`, { firstName, lastName, birthdate, email, passwd });
+        return this._http.post(`${environment.apiUrl}/auth/register`, { firstName, lastName, birthdate, email, passwd });
       }
 
     login(email: string, passwd: string) {
-        return this._http.post<any>(`${environment.apiUrl}/api/auth/login`, { email, passwd })
+        return this._http.post<any>(`${environment.apiUrl}/auth/login`, { email, passwd })
             .pipe(map(user => {
                 localStorage.setItem('user', JSON.stringify(user));
                 this._userSubject.next(user);

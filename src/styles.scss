@@ -13,3 +13,11 @@ body { margin: 0; font-family: "Helvetica Neue", Roboto, sans-serif;}
     background: #FF4500;
     color: white;
 }
+
+.content {
+    padding: 16px;
+}
+
+.content > mat-card {
+    width: 200px;
+}

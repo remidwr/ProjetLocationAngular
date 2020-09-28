@@ -5,28 +5,30 @@ import { AboutComponent } from './components/about/about.component';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 import { Role } from './modules/auth/models/role.model';
 import { FourOfourComponent } from './components/four-ofour/four-ofour.component';
-import { GetAllUserComponent } from './modules/user/components/get-all-user/get-all-user.component';
+import { SchematicsComponent } from './components/schematics/schematics.component';
 
 const routes: Routes = [
   { 
     path: 'home',
-    component : HomeComponent
+    component: HomeComponent
   },
   { 
     path: 'about',
-    component : AboutComponent
+    component: AboutComponent
   },
-  { 
-    path: 'users',
-    component: GetAllUserComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin, Role.SuperAdmin] }
+  {
+    path: 'schematics',
+    component: SchematicsComponent
   },
-  { 
+  {
     path: 'user',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.SuperAdmin] } 
+  },
+  {
+    path: 'annonce',
+    loadChildren: () => import('./modules/good/good.module').then(m => m.GoodModule)
   },
   {
     path: 'auth',
@@ -36,10 +38,6 @@ const routes: Routes = [
     path: 'notFound', 
     component: FourOfourComponent 
   },
-  // { 
-  //   path: 'shared',
-  //   loadChildren: () => import('./modules/shared/shared.module').then(m => m.SharedModule) 
-  // },
   { 
     path: '**', 
     redirectTo: '/notFound'

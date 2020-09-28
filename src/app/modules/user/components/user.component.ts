@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
-
-import { UserSimple } from '../models/user.model';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'user-user',
@@ -15,7 +11,4 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
-
 }

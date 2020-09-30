@@ -2,7 +2,6 @@
   <span>
     <button mat-button routerLink="/home">
       <mat-icon>home</mat-icon>
-      Acceuil
     </button>
     <button mat-button routerLink="/annonce/annonces">Louer</button>
     <button mat-button routerLink="/annonce/ajoutannonce">Ajouter une annonce</button>
@@ -17,6 +16,10 @@
   <button mat-button *ngIf="user" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     Se déconnecter
+  </button>
+  <button mat-button *ngIf="user">
+    <mat-icon>account_circle</mat-icon>
+    Bienvenue {{ user.firstName }}
   </button>
 </div>
 <button mat-button [mat-menu-trigger-for]="menu" class="button" fxHide="false" fxHide.gt-sm>

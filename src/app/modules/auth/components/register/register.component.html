@@ -58,7 +58,7 @@
                             <mat-label>Confirmer mot de passe</mat-label>
                             <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="confirmPasswd"/>
                             <mat-error>{{errors.confirmPasswd}}</mat-error>
-                            <mat-error *ngIf="f.confirmPasswd.errors?.mustMatch">Le mot de passe de correspond pas</mat-error>
+                            <mat-error *ngIf="f.confirmPasswd.errors?.mustMatch">Les mots de passe ne correspondent pas</mat-error>
                         </mat-form-field>
                     </div>
                 </div>

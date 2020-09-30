@@ -27,6 +27,7 @@ export class CreateGoodComponent implements OnInit {
   good: Good;
   sections: Section[];
   categories: Category[];
+  pictureLink: string;
 
   errors: any = {};
   error = false;
@@ -89,6 +90,22 @@ export class CreateGoodComponent implements OnInit {
     
     if (this.checkform())
     {
+      // const goodCreated = new Good();
+      this.good.name = this.goodForm.value['name'];
+      this.good.description = this.goodForm.value['description'];
+      this.good.state = this.goodForm.value['state'];
+      this.good.amountPerDay = this.goodForm.value['amountPerDay'] === null ? null : this.goodForm.value['amountPerDay'];
+      this.good.amountPerWeek = this.goodForm.value['amountPerWeek'] === null ? null : this.goodForm.value['amountPerWeek'];
+      this.good.amountPerMonth = this.goodForm.value['amountPerMonth'] === null ? null : this.goodForm.value['amountPerMonth'];
+      this.good.street = this.goodForm.value['street'];
+      this.good.number = this.goodForm.value['number'];
+      this.good.box = null ? null : this.goodForm.value['box'];
+      this.good.postCode = this.goodForm.value['postCode'];
+      this.good.city = this.goodForm.value['city']; 
+      this.good.picture = this.pictureLink === null ? null: this.pictureLink;
+      this.good.section = this.goodForm.value['section'];
+      this.good.category = this.goodForm.value['category'];
+
       this._goodService.create(this.good)
         .pipe(first())
         .subscribe(
@@ -122,6 +139,7 @@ export class CreateGoodComponent implements OnInit {
     const formData = new FormData();  
     formData.append('file', file.data);  
     file.inProgress = true;  
+    // if (formData == null) return;
     this._uploadService.upload(formData).pipe(  
       map(event => {  
         switch (event.type) {  
@@ -137,7 +155,8 @@ export class CreateGoodComponent implements OnInit {
         return of(`${file.data.name} upload failed.`);  
       })).subscribe((event: any) => {  
         if (typeof (event) === 'object') {  
-          console.log(event.body);  
+          this.pictureLink = event.body.link;
+          console.log(this.pictureLink);  
         }  
       });  
   }
@@ -153,8 +172,8 @@ export class CreateGoodComponent implements OnInit {
     const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {  
     for (let index = 0; index < fileUpload.files.length; index++)  
     {  
-     const file = fileUpload.files[index];  
-     this.files.push({ data: file, inProgress: false, progress: 0});  
+     const file = fileUpload.files[index];
+     this.files.push({ data: file, inProgress: false, progress: 0});
     }  
       this.uploadFiles();  
     };  

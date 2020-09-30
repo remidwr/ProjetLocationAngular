@@ -28,6 +28,19 @@ mat-form-field {
   margin-right: 0;
 }
 
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
 ul, li {  
   margin: 0;  
   padding: 0;  

@@ -22,7 +22,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressButtonsModule } from 'node_modules/mat-progress-buttons'
+import { MatProgressButtonsModule } from 'node_modules/mat-progress-buttons';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -55,6 +57,8 @@ import { MatProgressButtonsModule } from 'node_modules/mat-progress-buttons'
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatProgressButtonsModule,
+    MatAutocompleteModule,
+    MatProgressBarModule,
   ],
   exports: [
     HttpClientModule,
@@ -85,6 +89,8 @@ import { MatProgressButtonsModule } from 'node_modules/mat-progress-buttons'
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatProgressButtonsModule,
+    MatAutocompleteModule,
+    MatProgressBarModule
   ]
 })
 export class SharedModule { }

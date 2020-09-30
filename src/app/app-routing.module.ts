@@ -8,6 +8,11 @@ import { FourOfourComponent } from './components/four-ofour/four-ofour.component
 import { SchematicsComponent } from './components/schematics/schematics.component';
 
 const routes: Routes = [
+  {
+    path: '', 
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   { 
     path: 'home',
     component: HomeComponent

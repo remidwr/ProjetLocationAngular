@@ -3,27 +3,33 @@ mat-card {
     margin: 2em auto;
     text-align: center;
     background: rgba($color: #D3D3D3, $alpha: 0.1);
-  }
+}
   
-  mat-form-field {
-    display: block;
-  }
+mat-form-field {
+  display: block;
+}
 
-  .good-card {
-    min-width: 120px;
-    margin: 20px auto;
-  }
+.good-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
 
-  .row {
-    display: flex;
-    flex-direction: row;
-  }
+.row {
+  display: flex;
+  flex-direction: row;
+}
   
-  .col {
-    flex: 1;
-    margin-right: 20px;
-  }
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
   
-  .col:last-child {
-    margin-right: 0;
-  }
+.col:last-child {
+  margin-right: 0;
+}
+
+ul, li {  
+  margin: 0;  
+  padding: 0;  
+  list-style: none;  
+}

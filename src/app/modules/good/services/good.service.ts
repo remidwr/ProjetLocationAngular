@@ -4,6 +4,8 @@ import { Good } from '../models/good.model';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
 import { Observable } from 'rxjs';
+import { Section } from '../models/section.model';
+import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,7 @@ export class GoodService {
 
   }
 
-  create(good: Good): Observable<any> {
+  create(good: Good): Observable<Good> {
     return this._http.post<Good>(`${environment.apiUrl}/good`, good, this.HttpOptions(this.token));
   }
 
@@ -41,4 +43,16 @@ export class GoodService {
     };
     return options
   }
+
+  getSection() {
+    return this._http.get<Section[]>(`${environment.apiUrl}/section`);
+  }
+
+  getCategory() {
+    return this._http.get<Category[]>(`${environment.apiUrl}/category`);
+  }
+
+  // public getCities(): Observable<City[]> {
+  //   return this._http.get<City[]>('../../../../assets/data/cities-belgium.json');
+  // }
 }

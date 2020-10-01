@@ -9,15 +9,15 @@ import { SchematicsComponent } from './components/schematics/schematics.componen
 
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  { 
+  {
     path: 'home',
     component: HomeComponent
   },
-  { 
+  {
     path: 'about',
     component: AboutComponent
   },
@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
     canActivate: [AuthGuard],
-    data: { roles: [Role.Admin, Role.SuperAdmin] } 
+    data: { roles: [Role.Admin, Role.SuperAdmin] }
   },
   {
     path: 'annonce',
@@ -39,12 +39,12 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
-  { 
-    path: 'notFound', 
-    component: FourOfourComponent 
+  {
+    path: 'notFound',
+    component: FourOfourComponent
   },
-  { 
-    path: '**', 
+  {
+    path: '**',
     redirectTo: '/notFound'
   }
 ];

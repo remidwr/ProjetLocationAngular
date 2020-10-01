@@ -1,10 +1,10 @@
 mat-card {
-    max-width: 400px;
-    margin: 2em auto;
-    text-align: center;
-    background: rgba($color: #D3D3D3, $alpha: 0.1);
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+  background: rgba($color: #d3d3d3, $alpha: 0.1);
 }
-  
+
 mat-form-field {
   display: block;
 }
@@ -18,12 +18,12 @@ mat-form-field {
   display: flex;
   flex-direction: row;
 }
-  
+
 .col {
   flex: 1;
   margin-right: 20px;
 }
-  
+
 .col:last-child {
   margin-right: 0;
 }
@@ -41,8 +41,9 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
-ul, li {  
-  margin: 0;  
-  padding: 0;  
-  list-style: none;  
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }

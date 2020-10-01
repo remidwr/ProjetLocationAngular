@@ -7,7 +7,7 @@ import { GetGoodsComponent } from './components/get-goods/get-goods.component';
 
 const routes: Routes = [
   {
-    path: 'annonces', 
+    path: 'annonces',
     component: GetGoodsComponent
   },
   {

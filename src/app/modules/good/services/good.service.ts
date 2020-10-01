@@ -18,10 +18,11 @@ export class GoodService {
     private _authService: AuthService,
   ) {
     this._authService.user.subscribe(data => {
-      if (data == null || data.token == null) 
+      if (data == null || data.token == null)
         return;
       this.token = data.token;
-    }) }
+    })
+  }
 
   getAll() {
     return this._http.get<Good[]>(`${environment.apiUrl}/good`);
@@ -35,10 +36,10 @@ export class GoodService {
     return this._http.post<Good>(`${environment.apiUrl}/good`, good, this.HttpOptions(this.token));
   }
 
-  private HttpOptions(token: string){
+  private HttpOptions(token: string) {
     let options = {
       headers: new HttpHeaders({
-        Authorization:'Bearer '+ token
+        Authorization: 'Bearer ' + token
       })
     };
     return options

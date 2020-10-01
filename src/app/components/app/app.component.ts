@@ -8,24 +8,20 @@ import { AuthService } from '../../modules/auth/services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  user : User;
-  
+  user: User;
+
   greet: string;
   myDate = new Date();
   hrs = this.myDate.getHours();
 
-  constructor(
-    private _router: Router,
-    private _authService: AuthService
-  ) {
-    this._authService.user.subscribe(x => this.user = x);
+  constructor(private _router: Router, private _authService: AuthService) {
+    this._authService.user.subscribe((x) => (this.user = x));
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   get isAdmin() {
     return this.user && this.user.roleName === Role.Admin;

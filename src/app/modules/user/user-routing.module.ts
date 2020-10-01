@@ -6,7 +6,7 @@ import { Role } from '../auth/models/role.model';
 import { GetAllUserComponent } from './components/get-all-user/get-all-user.component';
 
 const routes: Routes = [
-  { 
+  {
     path: 'users',
     component: GetAllUserComponent,
     canActivate: [AuthGuard],

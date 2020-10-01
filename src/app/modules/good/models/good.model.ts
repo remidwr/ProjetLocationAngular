@@ -13,7 +13,7 @@ export class Good {
     city: string;
     picture: string;
     section: SectionName;
-    category: CategoryName; 
+    category: CategoryName;
 }
 
 export class SectionName {

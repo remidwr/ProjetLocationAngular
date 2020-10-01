@@ -17,13 +17,13 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
+    { provide: MAT_DATE_LOCALE, useValue: 'fr' },
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ]
 })
 export class RegisterComponent implements OnInit {
@@ -52,9 +52,9 @@ export class RegisterComponent implements OnInit {
     private _dateAdapter: DateAdapter<any>,
     private _errorHandler: ErrorHandler,
     private _snackBar: MatSnackBar
-  ) { 
-    if (this._authService.userValue) { 
-        this._router.navigate(['/home']);
+  ) {
+    if (this._authService.userValue) {
+      this._router.navigate(['/home']);
     }
   }
 
@@ -78,16 +78,16 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-      this.spinnerButtonOptions.active = true;
-      this._authService.register(this.f.firstName.value, this.f.lastName.value, this.f.birthdate.value, this.f.email.value, this.f.passwd.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this._router.navigate(['/auth/login']);
-              },
-              error => {
-                  this._snackBar.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
-                  this.spinnerButtonOptions.active = false;
-              });
+    this.spinnerButtonOptions.active = true;
+    this._authService.register(this.f.firstName.value, this.f.lastName.value, this.f.birthdate.value, this.f.email.value, this.f.passwd.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this._router.navigate(['/auth/login']);
+        },
+        error => {
+          this._snackBar.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
+          this.spinnerButtonOptions.active = false;
+        });
   }
 }

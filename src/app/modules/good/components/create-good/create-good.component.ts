@@ -16,11 +16,10 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-create-good',
   templateUrl: './create-good.component.html',
-  styleUrls: ['./create-good.component.scss']
+  styleUrls: ['./create-good.component.scss'],
 })
 export class CreateGoodComponent implements OnInit {
-
-  @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
+  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
   files = [];
 
   goodForm: FormGroup;
@@ -45,8 +44,8 @@ export class CreateGoodComponent implements OnInit {
     spinnerColor: 'primary',
     fullWidth: false,
     disabled: false,
-    mode: 'indeterminate'
-  }
+    mode: 'indeterminate',
+  };
 
   constructor(
     private _fromBuilder: FormBuilder,
@@ -55,11 +54,11 @@ export class CreateGoodComponent implements OnInit {
     private _uploadService: UploadService,
     private _errorHandler: ErrorHandler,
     private _snackBar: MatSnackBar
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this._goodService.getSection().subscribe(x => this.sections = x);
-    this._goodService.getCategory().subscribe(x => this.categories = x);
+    this._goodService.getSection().subscribe((x) => (this.sections = x));
+    this._goodService.getCategory().subscribe((x) => (this.categories = x));
 
     this.goodForm = this._fromBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -75,21 +74,22 @@ export class CreateGoodComponent implements OnInit {
       city: ['', [Validators.required, Validators.maxLength(50)]],
       picture: ['', [Validators.required, Validators.maxLength(320)]],
       section: ['', [Validators.required]],
-      category: ['', [Validators.required]]
+      category: ['', [Validators.required]],
     });
 
     this._errorHandler.handleErrors(this.goodForm, this.errors);
   }
 
-  get f() { return this.goodForm.controls; }
+  get f() {
+    return this.goodForm.controls;
+  }
 
   onSubmit(): void {
     this.error = false;
     this.errorMsg = '';
     this.spinnerButtonOptions.active = true;
 
-    if (this.checkform())
-    {
+    if (this.checkform()) {
       const goodCreated = new Good();
       goodCreated.name = this.goodForm.value.name;
       goodCreated.description = this.goodForm.value.description;
@@ -106,33 +106,38 @@ export class CreateGoodComponent implements OnInit {
       goodCreated.section = this.goodForm.value.section;
       goodCreated.category = this.goodForm.value.category;
 
-      this._goodService.create(this.good)
+      this._goodService
+        .create(this.good)
         .pipe(first())
         .subscribe(
-          data => {
+          (data) => {
             this._router.navigate(['/annonce/annonces']);
           },
-          error => {
-            this._snackBar.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
+          (error) => {
+            this._snackBar.open(error, 'Annuler', {
+              panelClass: ['colored-snackbar'],
+            });
             this.spinnerButtonOptions.active = false;
           }
         );
-    }
-    else {
+    } else {
       this.error = true;
       this.errorMsg = 'Un montant doit être indiqué';
-      this._snackBar.open(this.errorMsg, 'Annuler', { panelClass: ['colored-snackbar'] });
+      this._snackBar.open(this.errorMsg, 'Annuler', {
+        panelClass: ['colored-snackbar'],
+      });
       this.spinnerButtonOptions.active = false;
     }
   }
 
-  checkform(): boolean{
-    if (this.goodForm.value.amountPerDay === null
-        && this.goodForm.value.amountPerWeek === null
-        && this.goodForm.value.amountPerMonth === null) {
+  checkform(): boolean {
+    if (
+      this.goodForm.value.amountPerDay === null &&
+      this.goodForm.value.amountPerWeek === null &&
+      this.goodForm.value.amountPerMonth === null
+    ) {
       return false;
-    }
-    else {
+    } else {
       return true;
     }
   }
@@ -142,21 +147,25 @@ export class CreateGoodComponent implements OnInit {
     formData.append('file', file.data);
     file.inProgress = true;
     // if (formData == null) return;
-    this._uploadService.upload(formData).pipe(
-      map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
-        }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        return of(`${file.data.name} upload failed.`);
-      })).subscribe((event: any) => {
-        if (typeof (event) === 'object') {
+    this._uploadService
+      .upload(formData)
+      .pipe(
+        map((event) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              file.progress = Math.round((event.loaded * 100) / event.total);
+              break;
+            case HttpEventType.Response:
+              return event;
+          }
+        }),
+        catchError((error: HttpErrorResponse) => {
+          file.inProgress = false;
+          return of(`${file.data.name} upload failed.`);
+        })
+      )
+      .subscribe((event: any) => {
+        if (typeof event === 'object') {
           this.pictureLink = event.body.link;
           console.log(this.pictureLink);
         }
@@ -165,19 +174,19 @@ export class CreateGoodComponent implements OnInit {
 
   private uploadFiles(): void {
     this.fileUpload.nativeElement.value = '';
-    this.files.forEach(file => {
+    this.files.forEach((file) => {
       this.uploadFile(file);
     });
   }
 
   onClick(): void {
-    const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {
-    for (let index = 0; index < fileUpload.files.length; index++)
-    {
-     const file = fileUpload.files[index];
-     this.files.push({ data: file, inProgress: false, progress: 0});
-    }
-    this.uploadFiles();
+    const fileUpload = this.fileUpload.nativeElement;
+    fileUpload.onchange = () => {
+      for (let index = 0; index < fileUpload.files.length; index++) {
+        const file = fileUpload.files[index];
+        this.files.push({ data: file, inProgress: false, progress: 0 });
+      }
+      this.uploadFiles();
     };
     fileUpload.click();
   }

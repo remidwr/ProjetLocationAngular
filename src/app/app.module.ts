@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { FourOfourComponent } from './components/four-ofour/four-ofour.component'; 
+import { FourOfourComponent } from './components/four-ofour/four-ofour.component';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SchematicsComponent } from './components/schematics/schematics.component';
@@ -46,7 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000} }
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }
   ],
   bootstrap: [AppComponent]
 })

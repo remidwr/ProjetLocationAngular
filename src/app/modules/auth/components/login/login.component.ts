@@ -58,16 +58,16 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-      this.spinnerButtonOptions.active = true;
-      this._authService.login(this.f.email.value, this.f.passwd.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                this._router.navigate([this.returnUrl]);
-              },
-              error => {
-                this._snackBarService.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
-                this.spinnerButtonOptions.active = false;
-              });
+    this.spinnerButtonOptions.active = true;
+    this._authService.login(this.f.email.value, this.f.passwd.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this._router.navigate([this.returnUrl]);
+        },
+        error => {
+          this._snackBarService.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
+          this.spinnerButtonOptions.active = false;
+        });
   }
 }

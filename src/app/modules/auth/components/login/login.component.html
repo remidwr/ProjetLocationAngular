@@ -1,38 +1,39 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-card class="login-card">
     <mat-card-content>
-        <mat-card-title class="space">Identifiez-vous</mat-card-title>
-          <div class="row">
-            <div class="col">
-              <mat-form-field class="full-width-input">
-                <mat-label>Identifiant</mat-label>
-                <input matInput maxlength="320" placeholder="email@example.com" formControlName="email"/>
-                <mat-error>{{ errors.email }}</mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field class="full-width-input">
-                <mat-label>Mot de passe</mat-label>
-                <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="passwd"/>
-                <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error>{{ errors.passwd }}</mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div>
-            <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="loginForm.invalid"></mat-spinner-button>
-          </div>
-          <br>
-          <mat-divider></mat-divider>
-          <br>
-          <div>
-            <h3>Pas encore de compte ? Enregistrez-vous ici</h3>
-            <button mat-raised-button color="primary" type="submit" routerLink="/auth/register">S'enregistrer</button>
-          </div>
+      <mat-card-title class="space">Identifiez-vous</mat-card-title>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width-input">
+            <mat-label>Identifiant</mat-label>
+            <input matInput maxlength="320" placeholder="email@example.com" formControlName="email" />
+            <mat-error>{{ errors.email }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width-input">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="passwd" />
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error>{{ errors.passwd }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="loginForm.invalid"></mat-spinner-button>
+      </div>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div>
+        <h3>Pas encore de compte ? Enregistrez-vous ici</h3>
+        <button mat-raised-button color="primary" type="submit" routerLink="/auth/register">S'enregistrer</button>
+      </div>
     </mat-card-content>
   </mat-card>
 </form>

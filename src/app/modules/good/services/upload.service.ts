@@ -10,7 +10,6 @@ export class UploadService {
 
   constructor(private _http: HttpClient) { }
 
-  // tslint:disable-next-line: typedef
   public upload(formData: any) {
     return this._http.post<any>(this.SERVER_URL, formData, {
       reportProgress: true,

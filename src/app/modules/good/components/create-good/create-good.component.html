@@ -1,129 +1,133 @@
 <form [formGroup]="goodForm" (ngSubmit)="onSubmit()">
     <mat-card class="good-card">
         <mat-card-content>
-                <mat-card-title>Ajoutez votre annonce</mat-card-title>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Titre du produit</mat-label>
-                            <input matInput maxlength="50" formControlName="name"/>
-                            <mat-error>{{errors.name}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            <mat-card-title>Ajoutez votre annonce</mat-card-title>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Titre du produit</mat-label>
+                        <input matInput maxlength="50" formControlName="name" />
+                        <mat-error>{{errors.name}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field appearance="outline" class="full-width-input">
-                            <mat-label>Description</mat-label>
-                            <textarea matInput formControlName="description"></textarea>
-                            <mat-error>{{errors.description}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" class="full-width-input">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description"></textarea>
+                        <mat-error>{{errors.description}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Etat du produit</mat-label>
-                            <mat-select formControlName="state">
-                                <mat-option value="Neuf">Neuf</mat-option>
-                                <mat-option value="Utilisé">Utilisé</mat-option>
-                              </mat-select>
-                              <mat-error>{{errors.state}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Etat du produit</mat-label>
+                        <mat-select formControlName="state">
+                            <mat-option value="Neuf">Neuf</mat-option>
+                            <mat-option value="Utilisé">Utilisé</mat-option>
+                        </mat-select>
+                        <mat-error>{{errors.state}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Montant par jour</mat-label>
-                            <input matInput type="number" min="0" class="example-right-align" formControlName="amountPerDay"/>
-                            <span matSuffix>&nbsp;€</span>
-                            <mat-error>{{errors.amountPerDay}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Montant par jour</mat-label>
+                        <input matInput type="number" min="0" class="example-right-align"
+                            formControlName="amountPerDay" />
+                        <span matSuffix>&nbsp;€</span>
+                        <mat-error>{{errors.amountPerDay}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Rue</mat-label>
-                            <input matInput formControlName="street"/>
-                            <mat-error>{{errors.street}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Rue</mat-label>
+                        <input matInput formControlName="street" />
+                        <mat-error>{{errors.street}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Numéro de rue</mat-label>
-                            <input matInput formControlName="number"/>
-                            <mat-error>{{errors.number}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Numéro de rue</mat-label>
+                        <input matInput formControlName="number" />
+                        <mat-error>{{errors.number}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Code postal</mat-label>
-                            <input matInput formControlName="postCode"/>
-                            <mat-error>{{errors.postCode}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Code postal</mat-label>
+                        <input matInput formControlName="postCode" />
+                        <mat-error>{{errors.postCode}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Ville</mat-label>
-                            <input matInput formControlName="city"/>
-                            <mat-error>{{errors.city}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Ville</mat-label>
+                        <input matInput formControlName="city" />
+                        <mat-error>{{errors.city}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Section</mat-label>
-                            <mat-select formControlName="section">
-                                <mat-option *ngFor="let section of sections" [value]="section.name">{{ section.name }}</mat-option>
-                              </mat-select>
-                              <mat-error>{{errors.section}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Section</mat-label>
+                        <mat-select formControlName="section">
+                            <mat-option *ngFor="let section of sections" [value]="section.name">{{ section.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{errors.section}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Catégorie</mat-label>
-                            <mat-select formControlName="category">
-                                <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</mat-option>
-                              </mat-select>
-                              <mat-error>{{errors.categpry}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Catégorie</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{errors.categpry}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div style="text-align:center">
-                    <mat-card style="margin-top: 10px; width: 90%;">  
-                    <mat-card-content>  
-                        <ul>  
-                            <li *ngFor="let file of files">  
-                                <mat-progress-bar [value]="file.progress"></mat-progress-bar>  
+            </div>
+            <div style="text-align:center">
+                <mat-card style="margin-top: 10px; width: 90%;">
+                    <mat-card-content>
+                        <ul>
+                            <li *ngFor="let file of files">
+                                <mat-progress-bar [value]="file.progress"></mat-progress-bar>
                                 <span id="file-label">
-                                </span>  
-                            </li>  
-                        </ul>  
-                    </mat-card-content>  
-                    <mat-card-actions>  
-                        <button mat-button type="button" color="primary" (click)="onClick()">  
-                            <mat-icon>file_upload</mat-icon>  
-                            Charger  
-                        </button>  
+                                </span>
+                            </li>
+                        </ul>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button type="button" color="primary" (click)="onClick()">
+                            <mat-icon>file_upload</mat-icon>
+                            Charger
+                        </button>
                     </mat-card-actions>
-                    </mat-card>
-                    <input type="file" formControlName="picture" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" style="display:none;" />
-                </div>
-                <br>
-                <div>
-                    <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="goodForm.invalid"></mat-spinner-button>
-                </div>
+                </mat-card>
+                <input type="file" formControlName="picture" #fileUpload id="fileUpload" name="fileUpload"
+                    accept="image/*" style="display:none;" />
+            </div>
+            <br>
+            <div>
+                <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="goodForm.invalid"></mat-spinner-button>
+            </div>
         </mat-card-content>
     </mat-card>
 </form>

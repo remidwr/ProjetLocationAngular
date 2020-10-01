@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { Good } from '../../models/good.model';
 import { GoodService } from '../../services/good.service';
 

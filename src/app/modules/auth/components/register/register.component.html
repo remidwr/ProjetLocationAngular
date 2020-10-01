@@ -1,77 +1,81 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <mat-card class="register-card">
         <mat-card-content>
-                <mat-card-title>Enregistrez-vous</mat-card-title>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Prénom</mat-label>
-                            <input matInput maxlength="50" formControlName="firstName"/>
-                            <mat-error>{{errors.firstName}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            <mat-card-title>Enregistrez-vous</mat-card-title>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Prénom</mat-label>
+                        <input matInput maxlength="50" formControlName="firstName" />
+                        <mat-error>{{errors.firstName}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Nom de famille</mat-label>
-                            <input matInput maxlength="50" formControlName="lastName"/>
-                            <mat-error>{{errors.lastName}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Nom de famille</mat-label>
+                        <input matInput maxlength="50" formControlName="lastName" />
+                        <mat-error>{{errors.lastName}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Date de naissance</mat-label>
-                            <input matInput placeholder="01/01/1990" [matDatepicker]="picker" formControlName="birthdate"/>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-                            <mat-error>{{errors.birthdate}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Date de naissance</mat-label>
+                        <input matInput placeholder="01/01/1990" [matDatepicker]="picker" formControlName="birthdate" />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                        <mat-error>{{errors.birthdate}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Email</mat-label>
-                            <input matInput maxlength="320" placeholder="email@example.com" formControlName="email"/>
-                            <mat-error>{{errors.email}}</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Email</mat-label>
+                        <input matInput maxlength="320" placeholder="email@example.com" formControlName="email" />
+                        <mat-error>{{errors.email}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Mot de passe</mat-label>
-                            <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="passwd"/>
-                            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Mot de passe</mat-label>
+                        <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="passwd" />
+                        <button mat-icon-button type="button" matSuffix (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            </button>
-                            <mat-error>{{errors.passwd}}</mat-error>
-                        </mat-form-field>
-                    </div>
+                        </button>
+                        <mat-error>{{errors.passwd}}</mat-error>
+                    </mat-form-field>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width-input">
-                            <mat-label>Confirmer mot de passe</mat-label>
-                            <input matInput maxlength="20" [type]="hide ? 'password' : 'text'" formControlName="confirmPasswd"/>
-                            <mat-error>{{errors.confirmPasswd}}</mat-error>
-                            <mat-error *ngIf="f.confirmPasswd.errors?.mustMatch">Les mots de passe ne correspondent pas</mat-error>
-                        </mat-form-field>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Confirmer mot de passe</mat-label>
+                        <input matInput maxlength="20" [type]="hide ? 'password' : 'text'"
+                            formControlName="confirmPasswd" />
+                        <mat-error>{{errors.confirmPasswd}}</mat-error>
+                        <mat-error *ngIf="f.confirmPasswd.errors?.mustMatch">Les mots de passe ne correspondent pas
+                        </mat-error>
+                    </mat-form-field>
                 </div>
-                <div>
-                    <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="registerForm.invalid"></mat-spinner-button>
-                </div>
-                <br>
-                <mat-divider></mat-divider>
-                <br>
-                <div>
-                    <h3>Déjà un compte ? Identifiez-vous ici</h3>
-                    <button mat-raised-button color="primary" type="submit" routerLink="/auth/login">S'identifier</button>
-                </div>
+            </div>
+            <div>
+                <mat-spinner-button [options]="spinnerButtonOptions" [disabled]="registerForm.invalid">
+                </mat-spinner-button>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div>
+                <h3>Déjà un compte ? Identifiez-vous ici</h3>
+                <button mat-raised-button color="primary" type="submit" routerLink="/auth/login">S'identifier</button>
+            </div>
         </mat-card-content>
     </mat-card>
 </form>

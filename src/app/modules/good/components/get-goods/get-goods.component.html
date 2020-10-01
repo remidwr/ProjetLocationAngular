@@ -2,19 +2,20 @@
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="40%" *ngFor="let good of goods">
         <mat-card class="">
             <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{ good.name }}</mat-card-title>
-            <mat-card-subtitle></mat-card-subtitle>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>{{ good.name }}</mat-card-title>
+                <mat-card-subtitle></mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image src="{{ good.picture }}" alt="Image de {{ good.name }}">
             <mat-card-content>
-            <p>
-                {{good.description}} <!-- la description prend trop de place -->
-            </p>
+                <p>
+                    {{good.description}}
+                    <!-- la description prend trop de place -->
+                </p>
             </mat-card-content>
             <mat-card-actions class="center-button">
-            <button mat-raised-button color="primary">Louer</button>
-            <button mat-raised-button color="accent">Détails</button>
+                <button mat-raised-button color="primary">Louer</button>
+                <button mat-raised-button color="accent">Détails</button>
             </mat-card-actions>
         </mat-card>
     </div>

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-    constructor(private _authService: AuthService) {}
+    constructor(private _authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const user = this._authService.userValue;

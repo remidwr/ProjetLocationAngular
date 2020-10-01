@@ -37,7 +37,7 @@ export class CreateGoodComponent implements OnInit {
 
   spinnerButtonOptions: MatProgressButtonOptions = {
     active: false,
-    text: "Ajouter",
+    text: 'Ajouter',
     spinnerSize: 19,
     raised: true,
     stroked: false,
@@ -77,34 +77,34 @@ export class CreateGoodComponent implements OnInit {
       section: ['', [Validators.required]],
       category: ['', [Validators.required]]
     });
-    
+
     this._errorHandler.handleErrors(this.goodForm, this.errors);
   }
-  
+
   get f() { return this.goodForm.controls; }
-  
-  onSubmit() {
+
+  onSubmit(): void {
     this.error = false;
-    this.errorMsg = "";
+    this.errorMsg = '';
     this.spinnerButtonOptions.active = true;
-    
+
     if (this.checkform())
     {
-      // const goodCreated = new Good();
-      this.good.name = this.goodForm.value['name'];
-      this.good.description = this.goodForm.value['description'];
-      this.good.state = this.goodForm.value['state'];
-      this.good.amountPerDay = this.goodForm.value['amountPerDay'] === null ? null : this.goodForm.value['amountPerDay'];
-      this.good.amountPerWeek = this.goodForm.value['amountPerWeek'] === null ? null : this.goodForm.value['amountPerWeek'];
-      this.good.amountPerMonth = this.goodForm.value['amountPerMonth'] === null ? null : this.goodForm.value['amountPerMonth'];
-      this.good.street = this.goodForm.value['street'];
-      this.good.number = this.goodForm.value['number'];
-      this.good.box = null ? null : this.goodForm.value['box'];
-      this.good.postCode = this.goodForm.value['postCode'];
-      this.good.city = this.goodForm.value['city']; 
-      this.good.picture = this.pictureLink === null ? null: this.pictureLink;
-      this.good.section = this.goodForm.value['section'];
-      this.good.category = this.goodForm.value['category'];
+      const goodCreated = new Good();
+      goodCreated.name = this.goodForm.value.name;
+      goodCreated.description = this.goodForm.value.description;
+      goodCreated.state = this.goodForm.value.state;
+      goodCreated.amountPerDay = this.goodForm.value.amountPerDay;
+      goodCreated.amountPerWeek = this.goodForm.value.amountPerWeek;
+      goodCreated.amountPerMonth = this.goodForm.value.amountPerMonth;
+      goodCreated.street = this.goodForm.value.street;
+      goodCreated.number = this.goodForm.value.number;
+      goodCreated.box = this.goodForm.value.box;
+      goodCreated.postCode = this.goodForm.value.postCode;
+      goodCreated.city = this.goodForm.value.city;
+      goodCreated.picture = this.pictureLink === null ? null : this.pictureLink;
+      goodCreated.section = this.goodForm.value.section;
+      goodCreated.category = this.goodForm.value.category;
 
       this._goodService.create(this.good)
         .pipe(first())
@@ -116,18 +116,20 @@ export class CreateGoodComponent implements OnInit {
             this._snackBar.open(error, 'Annuler', { panelClass: ['colored-snackbar'] });
             this.spinnerButtonOptions.active = false;
           }
-        )
-      }
+        );
+    }
     else {
       this.error = true;
-      this.errorMsg = "Un montant doit être indiqué";
+      this.errorMsg = 'Un montant doit être indiqué';
       this._snackBar.open(this.errorMsg, 'Annuler', { panelClass: ['colored-snackbar'] });
       this.spinnerButtonOptions.active = false;
     }
   }
 
   checkform(): boolean{
-    if (this.goodForm.value.amountPerDay && this.goodForm.value.amountPerWeek && this.goodForm.value.amountPerMonth == null) {
+    if (this.goodForm.value.amountPerDay === null
+        && this.goodForm.value.amountPerWeek === null
+        && this.goodForm.value.amountPerMonth === null) {
       return false;
     }
     else {
@@ -135,48 +137,48 @@ export class CreateGoodComponent implements OnInit {
     }
   }
 
-  uploadFile(file) {  
-    const formData = new FormData();  
-    formData.append('file', file.data);  
-    file.inProgress = true;  
+  uploadFile(file: any): void {
+    const formData = new FormData();
+    formData.append('file', file.data);
+    file.inProgress = true;
     // if (formData == null) return;
-    this._uploadService.upload(formData).pipe(  
-      map(event => {  
-        switch (event.type) {  
-          case HttpEventType.UploadProgress:  
-            file.progress = Math.round(event.loaded * 100 / event.total);  
-            break;  
-          case HttpEventType.Response:  
-            return event;  
-        }  
-      }),  
-      catchError((error: HttpErrorResponse) => {  
-        file.inProgress = false;  
-        return of(`${file.data.name} upload failed.`);  
-      })).subscribe((event: any) => {  
-        if (typeof (event) === 'object') {  
+    this._uploadService.upload(formData).pipe(
+      map(event => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            file.progress = Math.round(event.loaded * 100 / event.total);
+            break;
+          case HttpEventType.Response:
+            return event;
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        file.inProgress = false;
+        return of(`${file.data.name} upload failed.`);
+      })).subscribe((event: any) => {
+        if (typeof (event) === 'object') {
           this.pictureLink = event.body.link;
-          console.log(this.pictureLink);  
-        }  
-      });  
+          console.log(this.pictureLink);
+        }
+      });
   }
 
-  private uploadFiles() {  
-    this.fileUpload.nativeElement.value = '';  
-    this.files.forEach(file => {  
-      this.uploadFile(file);  
-    });  
+  private uploadFiles(): void {
+    this.fileUpload.nativeElement.value = '';
+    this.files.forEach(file => {
+      this.uploadFile(file);
+    });
   }
 
-  onClick() {  
-    const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {  
-    for (let index = 0; index < fileUpload.files.length; index++)  
-    {  
+  onClick(): void {
+    const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {
+    for (let index = 0; index < fileUpload.files.length; index++)
+    {
      const file = fileUpload.files[index];
      this.files.push({ data: file, inProgress: false, progress: 0});
-    }  
-      this.uploadFiles();  
-    };  
-    fileUpload.click();  
+    }
+    this.uploadFiles();
+    };
+    fileUpload.click();
   }
 }

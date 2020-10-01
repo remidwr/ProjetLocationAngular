@@ -52,8 +52,4 @@ export class GoodService {
   getCategory() {
     return this._http.get<Category[]>(`${environment.apiUrl}/category`);
   }
-
-  // public getCities(): Observable<City[]> {
-  //   return this._http.get<City[]>('../../../../assets/data/cities-belgium.json');
-  // }
 }

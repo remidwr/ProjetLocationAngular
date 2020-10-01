@@ -146,7 +146,6 @@ export class CreateGoodComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', file.data);
     file.inProgress = true;
-    // if (formData == null) return;
     this._uploadService
       .upload(formData)
       .pipe(
@@ -167,7 +166,7 @@ export class CreateGoodComponent implements OnInit {
       .subscribe((event: any) => {
         if (typeof event === 'object') {
           this.pictureLink = event.body.link;
-          console.log(this.pictureLink);
+          console.log(event.body);
         }
       });
   }

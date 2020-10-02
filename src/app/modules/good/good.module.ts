@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { GoodRoutingModule } from './good-routing.module';
 import { GetGoodsComponent } from './components/get-goods/get-goods.component';
 import { GoodService } from './services/good.service';
-import { UploadService } from './services/upload.service';
 import { SharedModule } from '../shared/shared.module';
 import { CreateGoodComponent } from './components/create-good/create-good.component';
 
@@ -21,7 +20,6 @@ import { CreateGoodComponent } from './components/create-good/create-good.compon
   ],
   providers: [
     GoodService,
-    UploadService,
   ]
 })
 export class GoodModule { }

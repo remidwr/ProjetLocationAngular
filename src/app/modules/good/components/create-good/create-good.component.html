@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-form-field class="full-width-input">
                         <mat-label>Description</mat-label>
                         <textarea matInput formControlName="description"></textarea>
                         <mat-error>{{errors.description}}</mat-error>
@@ -55,9 +55,18 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width-input">
-                        <mat-label>Numéro de rue</mat-label>
+                        <mat-label>N°</mat-label>
                         <input matInput formControlName="number" />
                         <mat-error>{{errors.number}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Boîte</mat-label>
+                        <input matInput formControlName="box" />
+                        <mat-error>{{errors.box}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -83,8 +92,8 @@
                 <div class="col">
                     <mat-form-field class="full-width-input">
                         <mat-label>Section</mat-label>
-                        <mat-select formControlName="section">
-                            <mat-option *ngFor="let section of sections" [value]="section.name">{{ section.name }}
+                        <mat-select formControlName="sectionId" (valueChange)="onSectionChangeAction($event)">
+                            <mat-option *ngFor="let section of sections" [value]="section.id">{{ section.name }}
                             </mat-option>
                         </mat-select>
                         <mat-error>{{errors.section}}</mat-error>
@@ -93,10 +102,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width-input">
+                    <mat-form-field class="full-width-input" *ngIf="isSectionSelected">
                         <mat-label>Catégorie</mat-label>
-                        <mat-select formControlName="category">
-                            <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}
+                        <mat-select formControlName="categoryId">
+                            <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}
                             </mat-option>
                         </mat-select>
                         <mat-error>{{errors.categpry}}</mat-error>
@@ -106,23 +115,24 @@
             <div style="text-align:center">
                 <mat-card style="margin-top: 10px; width: 90%;">
                     <mat-card-content>
-                        <ul>
-                            <li *ngFor="let file of files">
-                                <mat-progress-bar [value]="file.progress"></mat-progress-bar>
-                                <span id="file-label">
-                                </span>
-                            </li>
-                        </ul>
+                        <mat-progress-bar *ngIf="progress > 0" [value]="progress"></mat-progress-bar>
+                        <span *ngIf="message">
+                            {{ message }}
+                        </span>
+                        <div>
+                            <img class="resize-img" *ngIf="goodForm.get('picture').value as picture" [src]="picture">
+                        </div>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-button type="button" color="primary" (click)="onClick()">
+                        <button mat-button type="button" color="primary" (click)="file.click()">
                             <mat-icon>file_upload</mat-icon>
                             Charger
                         </button>
                     </mat-card-actions>
                 </mat-card>
-                <input type="file" formControlName="picture" #fileUpload id="fileUpload" name="fileUpload"
-                    accept="image/*" style="display:none;" />
+                <input type="file" #file formControlName="picture" (change)="uploadFile(file.files)" accept="image/*"
+                    style="display:none;" />
+
             </div>
             <br>
             <div>

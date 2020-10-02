@@ -1,17 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
-import { catchError, first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/helpers/error.handler';
 import { Good } from '../../models/good.model';
 import { GoodService } from '../../services/good.service';
 import { Section } from '../../models/section.model';
 import { Category } from '../../models/category.model';
-import { UploadService } from '../../services/upload.service';
-import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { of } from 'rxjs';
+import { HttpEventType, HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-good',
@@ -19,14 +19,15 @@ import { of } from 'rxjs';
   styleUrls: ['./create-good.component.scss'],
 })
 export class CreateGoodComponent implements OnInit {
-  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
-  files = [];
+  progress: number;
+  message: string;
+  @Output() public onUploadFinished = new EventEmitter();
 
   goodForm: FormGroup;
   good: Good;
   sections: Section[];
   categories: Category[];
-  pictureLink: string;
+  isSectionSelected: boolean = false;
 
   errors: any = {};
   error = false;
@@ -49,11 +50,12 @@ export class CreateGoodComponent implements OnInit {
 
   constructor(
     private _fromBuilder: FormBuilder,
+    private _http: HttpClient,
     private _router: Router,
     private _goodService: GoodService,
-    private _uploadService: UploadService,
     private _errorHandler: ErrorHandler,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -61,20 +63,21 @@ export class CreateGoodComponent implements OnInit {
     this._goodService.getCategory().subscribe((x) => (this.categories = x));
 
     this.goodForm = this._fromBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', Validators.required],
-      state: ['', [Validators.required]], // TODO ajout des différents etats
-      amountPerDay: ['', [Validators.min(0), Validators.max(100000)]],
-      amountPerWeek: ['', [Validators.min(0), Validators.max(100000)]],
-      amountPerMonth: ['', [Validators.min(0), Validators.max(100000)]],
-      street: ['', [Validators.required, Validators.maxLength(120)]],
-      number: ['', [Validators.required, Validators.maxLength(10)]],
-      box: ['', [Validators.maxLength(10)]],
-      postCode: ['', [Validators.required, Validators.min(1000), Validators.max(9999)]],
-      city: ['', [Validators.required, Validators.maxLength(50)]],
+      name: ['Un objet à louer', [Validators.required, Validators.maxLength(50)]],
+      description: ['Une description...', Validators.required],
+      state: ['Neuf', [Validators.required]],
+      amountPerDay: [null, [Validators.min(0), Validators.max(100000)]],
+      amountPerWeek: [null, [Validators.min(0), Validators.max(100000)]],
+      amountPerMonth: [null, [Validators.min(0), Validators.max(100000)]],
+      street: ['Rue du test', [Validators.required, Validators.maxLength(120)]],
+      number: ['1', [Validators.required, Validators.maxLength(10)]],
+      box: [null, [Validators.maxLength(10)]],
+      postCode: ['1000', [Validators.required, Validators.min(1000), Validators.max(9999)]],
+      city: ['Bruxelles', [Validators.required, Validators.maxLength(50)]],
       picture: ['', [Validators.required, Validators.maxLength(320)]],
-      section: ['', [Validators.required]],
-      category: ['', [Validators.required]],
+      sectionId: [null, [Validators.required]],
+      categoryId: [null, [Validators.required]],
+      userId: [this._authService.userValue.id]
     });
 
     this._errorHandler.handleErrors(this.goodForm, this.errors);
@@ -90,31 +93,15 @@ export class CreateGoodComponent implements OnInit {
     this.spinnerButtonOptions.active = true;
 
     if (this.checkform()) {
-      const goodCreated = new Good();
-      goodCreated.name = this.goodForm.value.name;
-      goodCreated.description = this.goodForm.value.description;
-      goodCreated.state = this.goodForm.value.state;
-      goodCreated.amountPerDay = this.goodForm.value.amountPerDay;
-      goodCreated.amountPerWeek = this.goodForm.value.amountPerWeek;
-      goodCreated.amountPerMonth = this.goodForm.value.amountPerMonth;
-      goodCreated.street = this.goodForm.value.street;
-      goodCreated.number = this.goodForm.value.number;
-      goodCreated.box = this.goodForm.value.box;
-      goodCreated.postCode = this.goodForm.value.postCode;
-      goodCreated.city = this.goodForm.value.city;
-      goodCreated.picture = this.pictureLink === null ? null : this.pictureLink;
-      goodCreated.section = this.goodForm.value.section;
-      goodCreated.category = this.goodForm.value.category;
-
       this._goodService
-        .create(this.good)
+        .create(this.goodForm.value)
         .pipe(first())
         .subscribe(
           (data) => {
             this._router.navigate(['/annonce/annonces']);
           },
           (error) => {
-            this._snackBar.open(error, 'Annuler', {
+            this._snackBar.open(error.message, 'Annuler', {
               panelClass: ['colored-snackbar'],
             });
             this.spinnerButtonOptions.active = false;
@@ -142,51 +129,37 @@ export class CreateGoodComponent implements OnInit {
     }
   }
 
-  uploadFile(file: any): void {
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
     const formData = new FormData();
-    formData.append('file', file.data);
-    file.inProgress = true;
-    this._uploadService
-      .upload(formData)
-      .pipe(
-        map((event) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              file.progress = Math.round((event.loaded * 100) / event.total);
-              break;
-            case HttpEventType.Response:
-              return event;
-          }
-        }),
-        catchError((error: HttpErrorResponse) => {
-          file.inProgress = false;
-          return of(`${file.data.name} upload failed.`);
-        })
-      )
-      .subscribe((event: any) => {
-        if (typeof event === 'object') {
-          this.pictureLink = event.body.link;
+    formData.append('file', fileToUpload, fileToUpload.name);
+    this._http.post(`${environment.apiUrl}/upload`, formData, { reportProgress: true, observe: 'events' })
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress)
+          this.progress = Math.round(100 * event.loaded / event.total);
+        else if (event.type === HttpEventType.Response) {
+          this.message = 'Chargement réussi';
+          const { dbPath } = event.body as any;
+          this.onUploadFinished.emit(event.body);
           console.log(event.body);
+          this.goodForm.get('picture').setValue(`${environment.ressourceUrl}/${dbPath}`);
         }
       });
   }
 
-  private uploadFiles(): void {
-    this.fileUpload.nativeElement.value = '';
-    this.files.forEach((file) => {
-      this.uploadFile(file);
-    });
-  }
+  onSectionChangeAction(sectionId: number) {
+    this.isSectionSelected = false;
+    this._goodService.getCategoriesBySection(sectionId).subscribe(categories => this.categories = categories);
 
-  onClick(): void {
-    const fileUpload = this.fileUpload.nativeElement;
-    fileUpload.onchange = () => {
-      for (let index = 0; index < fileUpload.files.length; index++) {
-        const file = fileUpload.files[index];
-        this.files.push({ data: file, inProgress: false, progress: 0 });
+    for (let category of this.categories) {
+      if (true) {
+        this.isSectionSelected = true;
+      } else {
+        this.isSectionSelected = false;
       }
-      this.uploadFiles();
-    };
-    fileUpload.click();
+    }
   }
 }

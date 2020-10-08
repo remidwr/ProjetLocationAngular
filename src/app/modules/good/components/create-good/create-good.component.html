@@ -115,29 +115,23 @@
             <div style="text-align:center">
                 <mat-card style="margin-top: 10px; width: 90%;">
                     <mat-card-content>
-                        <!-- <ul>
-                            <li *ngFor="let file of files">
-                                <mat-progress-bar *ngIf="file.progress > 0" [value]="file.progress"></mat-progress-bar>
-                                <span *ngIf="file.progress > 0">{{ progress }}%</span><br>
-                                <span *ngIf="message">
-                                    {{ message }}
-                                </span>
-                            </li>
-                        </ul> -->
-                        <div *ngFor="let image of images">
-                            <img class="resize-img" [src]="image.link">
-                            <!-- *ngIf="goodForm.get('picture').value" -->
+                        <mat-progress-bar *ngIf="imageProgress > 0" [value]="imageProgress"></mat-progress-bar>
+                        <span *ngIf="imageProgress > 0">{{ imageProgress }}%</span><br>
+                        <span *ngIf="message">
+                            {{ message }}
+                        </span>
+                        <div *ngIf="showImg != null">
+                            <img class="resize-img" [src]="showImg">
                         </div>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-button type="button" color="primary" (click)="addImage()">
+                        <button mat-button type="button" color="primary" (click)="onClick()">
                             <mat-icon>file_upload</mat-icon>
                             Charger
                         </button>
                     </mat-card-actions>
                 </mat-card>
-                <input type="file" #imageInput accept="image/*" (change)="imageInputChange(imageInput)" />
-                <!-- (change)="uploadFile(file.files)" -->
+                <input type="file" #fileUpload accept="image/*" style="display: none;" />
             </div>
             <br>
             <div>

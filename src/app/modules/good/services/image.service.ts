@@ -1,12 +1,9 @@
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-// interface ImageInfo {
-//   title: string;
-//   description: string;
-//   link: string;
-// }
+interface ImageInfo {
+  link: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +16,20 @@ export class ImageService {
 
   constructor(private _http: HttpClient) { }
 
-  async uploadImage(imageFile: File/*, infoObject: {}*/): Promise<string> {
+  public upload(formData) {
+    let header = new HttpHeaders({
+      "authorization": 'Client-ID ' + this.clientId,
+    });
+
+    return this._http.post<any>(this.url, formData, {
+      headers: header,
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  //////////
+  async uploadImage(imageFile: File): Promise<string> {
     let formData = new FormData();
     formData.append('image', imageFile, imageFile.name);
 
@@ -27,17 +37,20 @@ export class ImageService {
       "authorization": 'Client-ID ' + this.clientId,
     });
 
-    const imageData = await this._http.post(this.url, formData, { headers: header }).toPromise();
+    const imageData = await this._http.post(this.url, formData, {
+      headers: header,
+      reportProgress: true
+    }).toPromise();
 
-    return this.imagelink = imageData['data'].link;
+    this.imagelink = imageData['data'].link;
 
-    // let newImageObject: ImageInfo = {
-    //   title: infoObject["title"],
-    //   description: infoObject["description"],
-    //   link: this.imagelink
-    // };
+    let newImageObject: ImageInfo = {
+      link: this.imagelink
+    };
 
-    // this.images.unshift(this.imagelink);
+    this.images.unshift(newImageObject);
+
+    return this.imagelink;
   }
 
   getImage() {

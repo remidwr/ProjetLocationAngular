@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Good } from '../../models/good.model';
 import { GoodService } from '../../services/good.service';
 
@@ -9,6 +10,9 @@ import { GoodService } from '../../services/good.service';
 })
 export class GetGoodsComponent implements OnInit {
   goods: Good[] = [];
+  public response: { dbPath: '' };
+
+  public resourceUrl = environment.ressourceUrl;
 
   constructor(
     private _goodService: GoodService
@@ -20,5 +24,9 @@ export class GetGoodsComponent implements OnInit {
       error: error => console.log(error.message)
     })
   }
+
+  public uploadFinished = (event => {
+    this.response = event;
+  })
 
 }

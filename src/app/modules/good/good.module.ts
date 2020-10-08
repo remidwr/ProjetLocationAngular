@@ -1,3 +1,4 @@
+import { ImageService } from './services/image.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -20,6 +21,7 @@ import { CreateGoodComponent } from './components/create-good/create-good.compon
   ],
   providers: [
     GoodService,
+    ImageService
   ]
 })
 export class GoodModule { }

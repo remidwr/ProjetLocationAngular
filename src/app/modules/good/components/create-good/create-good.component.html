@@ -115,24 +115,29 @@
             <div style="text-align:center">
                 <mat-card style="margin-top: 10px; width: 90%;">
                     <mat-card-content>
-                        <mat-progress-bar *ngIf="progress > 0" [value]="progress"></mat-progress-bar>
-                        <span *ngIf="message">
-                            {{ message }}
-                        </span>
-                        <div>
-                            <img class="resize-img" *ngIf="goodForm.get('picture').value as picture" [src]="picture">
+                        <!-- <ul>
+                            <li *ngFor="let file of files">
+                                <mat-progress-bar *ngIf="file.progress > 0" [value]="file.progress"></mat-progress-bar>
+                                <span *ngIf="file.progress > 0">{{ progress }}%</span><br>
+                                <span *ngIf="message">
+                                    {{ message }}
+                                </span>
+                            </li>
+                        </ul> -->
+                        <div *ngFor="let image of images">
+                            <img class="resize-img" [src]="image.link">
+                            <!-- *ngIf="goodForm.get('picture').value" -->
                         </div>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-button type="button" color="primary" (click)="file.click()">
+                        <button mat-button type="button" color="primary" (click)="addImage()">
                             <mat-icon>file_upload</mat-icon>
                             Charger
                         </button>
                     </mat-card-actions>
                 </mat-card>
-                <input type="file" #file formControlName="picture" (change)="uploadFile(file.files)" accept="image/*"
-                    style="display:none;" />
-
+                <input type="file" #imageInput accept="image/*" (change)="imageInputChange(imageInput)" />
+                <!-- (change)="uploadFile(file.files)" -->
             </div>
             <br>
             <div>

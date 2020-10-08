@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+
 export class Good {
     id: number;
     name: string;
@@ -12,6 +14,7 @@ export class Good {
     postCode: number;
     city: string;
     picture: string;
+    // get pictureUrl(): string { return `${environment.ressourceUrl}/${this.picture}`; }
     section: SectionName;
     category: CategoryName;
 }

@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:5000/api',
   ressourceUrl: 'http://localhost:5000',
+  imagePath: 'C:\\Users\\remi6\\source\\repos\\Visual Studio Community 2019\\Projet\\ProjetLocation\\ProjetLocation_API\\'
 };
 
 /*

@@ -5,21 +5,21 @@
     </button>
     <button mat-button routerLink="/annonce/annonces">Louer</button>
     <button mat-button routerLink="/annonce/ajoutannonce">Ajouter une annonce</button>
-    <button mat-button routerLink="/user/users">Utilisateurs</button>
-    <button mat-button routerLink="/schematics">Formulaire</button>
+    <!-- <button mat-button routerLink="/user/users">Utilisateurs</button> -->
+    <!-- <button mat-button routerLink="/schematics">Formulaire</button> -->
   </span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
     <button mat-button routerLink="auth/login" *ngIf="!user">
       <mat-icon>power_settings_new</mat-icon>
       S'identifier
     </button>
+    <button mat-button *ngIf="user">
+      <mat-icon>account_circle</mat-icon>
+      Profil de {{ user.firstName }}
+    </button>
     <button mat-button *ngIf="user" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Se déconnecter
-    </button>
-    <button mat-button *ngIf="user">
-      <mat-icon>account_circle</mat-icon>
-      Bienvenue {{ user.firstName }}
     </button>
   </div>
   <button mat-button [mat-menu-trigger-for]="menu" class="button" fxHide="false" fxHide.gt-sm>
@@ -34,6 +34,10 @@
   <button mat-menu-item routerLink="auth/login" *ngIf="!user">
     <mat-icon>power_settings_new</mat-icon>
     S'identifier
+  </button>
+  <button mat-menu-item *ngIf="user">
+    <mat-icon>account_circle</mat-icon>
+    Mon profil
   </button>
   <button mat-menu-item *ngIf="user" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>

@@ -1,6 +1,6 @@
-<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="40%" *ngFor="let good of goods">
-        <mat-card class="">
+<div class="container" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+    <div class="card-list" fxFlex="18%" fxFlex.sm="40%" fxFlex.xs="100%" *ngFor="let good of goods">
+        <mat-card class="example-card">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>{{ good.name }}</mat-card-title>

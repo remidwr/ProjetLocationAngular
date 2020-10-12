@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { ImageService } from './../../services/image.service';
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -14,17 +14,19 @@ import { Category } from '../../models/category.model';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { of } from 'rxjs';
 
+interface amountTest {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-create-good',
   templateUrl: './create-good.component.html',
   styleUrls: ['./create-good.component.scss'],
 })
-export class CreateGoodComponent implements OnInit {
+export class CreateGoodComponent implements OnInit, OnDestroy {
   @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef;
   files = [];
 
-  private imageFile: File;
-  private file: string = null;
   showImg: string = null;
   image: any;
 
@@ -46,6 +48,14 @@ export class CreateGoodComponent implements OnInit {
   errorMsg: string;
 
   srcResult: string;
+
+  //mat select
+  selectedAmountType: null;
+  amounts: amountTest[] = [
+    { value: 'day', viewValue: 'par jour' },
+    { value: 'week', viewValue: 'par semaine' },
+    { value: 'month', viewValue: 'par mois' },]
+
 
   spinnerButtonOptions: MatProgressButtonOptions = {
     active: false,
@@ -95,11 +105,15 @@ export class CreateGoodComponent implements OnInit {
     this._errorHandler.handleErrors(this.goodForm, this.errors);
   }
 
+  ngOnDestroy(): void {
+    console.log('Component destroyed');
+  }
+
   get f() {
     return this.goodForm.controls;
   }
 
-  onSubmit(): void {
+  onSubmit() {
     this.error = false;
     this.errorMsg = '';
     this.spinnerButtonOptions.active = true;
@@ -202,7 +216,7 @@ export class CreateGoodComponent implements OnInit {
       .subscribe((categories) => (this.categories = categories));
 
     for (let category of this.categories) {
-      if (true) {
+      if (category != null) {
         this.isSectionSelected = true;
       } else {
         this.isSectionSelected = false;

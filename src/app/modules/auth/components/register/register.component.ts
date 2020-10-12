@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -26,7 +26,7 @@ import { AuthService } from '../../services/auth.service';
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   errors: any = {};
   startDate = new Date(1990, 1, 1);
@@ -73,6 +73,10 @@ export class RegisterComponent implements OnInit {
     });
 
     this._errorHandler.handleErrors(this.registerForm, this.errors);
+  }
+
+  ngOnDestroy(): void {
+    console.log('Component destroyed');
   }
 
   get f() { return this.registerForm.controls; }

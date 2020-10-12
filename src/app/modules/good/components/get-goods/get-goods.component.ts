@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Good } from '../../models/good.model';
 import { GoodService } from '../../services/good.service';
@@ -8,7 +8,7 @@ import { GoodService } from '../../services/good.service';
   templateUrl: './get-goods.component.html',
   styleUrls: ['./get-goods.component.scss']
 })
-export class GetGoodsComponent implements OnInit {
+export class GetGoodsComponent implements OnInit, OnDestroy {
   goods: Good[] = [];
   public response: { dbPath: '' };
 
@@ -23,6 +23,10 @@ export class GetGoodsComponent implements OnInit {
       next: dataFromService => this.goods = dataFromService,
       error: error => console.log(error.message)
     })
+  }
+
+  ngOnDestroy(): void {
+    console.log('Component destroyed');
   }
 
   public uploadFinished = (event => {

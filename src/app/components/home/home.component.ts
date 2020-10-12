@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
@@ -7,10 +7,14 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   constructor(private _breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    console.log('Component destroyed');
+  }
 
   cards = this._breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {

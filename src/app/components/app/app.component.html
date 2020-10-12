@@ -13,7 +13,7 @@
       <mat-icon>power_settings_new</mat-icon>
       S'identifier
     </button>
-    <button mat-button *ngIf="user">
+    <button mat-button routerLink="profil/monprofil" *ngIf="user">
       <mat-icon>account_circle</mat-icon>
       Profil de {{ user.firstName }}
     </button>
@@ -35,7 +35,7 @@
     <mat-icon>power_settings_new</mat-icon>
     S'identifier
   </button>
-  <button mat-menu-item *ngIf="user">
+  <button mat-menu-item routerLink="profil/monprofil" *ngIf="user">
     <mat-icon>account_circle</mat-icon>
     Mon profil
   </button>

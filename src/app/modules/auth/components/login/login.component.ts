@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   returnUrl: string;
   errors: any = {};
@@ -52,7 +52,11 @@ export class LoginComponent implements OnInit {
     });
 
     this._errorHandler.handleErrors(this.loginForm, this.errors);
-    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/home';
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/annonce/annonces';
+  }
+
+  ngOnDestroy(): void {
+    console.log('Component destroyed');
   }
 
   get f() { return this.loginForm.controls; }

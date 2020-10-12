@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/modules/auth/models/role.model';
 import { User } from '../../modules/auth/models/user.model';
@@ -10,7 +9,7 @@ import { AuthService } from '../../modules/auth/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   user: User;
 
   greet: string;
@@ -22,6 +21,10 @@ export class AppComponent {
   }
 
   ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    console.log('Component destroyed');
+  }
 
   get isAdmin() {
     return this.user && this.user.roleName === Role.Admin;

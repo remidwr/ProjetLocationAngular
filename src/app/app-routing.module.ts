@@ -26,18 +26,24 @@ const routes: Routes = [
     component: SchematicsComponent
   },
   {
-    path: 'user',
-    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin, Role.SuperAdmin] }
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'annonce',
     loadChildren: () => import('./modules/good/good.module').then(m => m.GoodModule)
   },
   {
-    path: 'auth',
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    path: 'profil',
+    loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.User, Role.Admin, Role.SuperAdmin] }
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.SuperAdmin] }
   },
   {
     path: 'notFound',

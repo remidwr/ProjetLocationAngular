@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressButtonsModule } from 'node_modules/mat-progress-buttons';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [],
@@ -58,6 +59,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressButtonsModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    MatButtonToggleModule,
   ],
   exports: [
     HttpClientModule,
@@ -88,7 +90,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressSpinnerModule,
     MatProgressButtonsModule,
     MatAutocompleteModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonToggleModule
   ]
 })
 export class SharedModule { }

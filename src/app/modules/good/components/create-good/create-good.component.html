@@ -1,9 +1,11 @@
-<form [formGroup]="goodForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="goodForm" (ngSubmit)="onSubmit()" fxLayout="row">
   <mat-card class="good-card">
-    <mat-card-content>
+    <mat-card-header>
       <mat-card-title>Ajoutez votre annonce</mat-card-title>
-      <div class="row">
-        <div class="col">
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+      <div>
+        <div>
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Titre du produit</mat-label>
             <input matInput maxlength="50" formControlName="name" />
@@ -11,8 +13,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div>
+        <div>
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description"></textarea>
@@ -20,8 +22,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div>
+        <div>
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Etat du produit</mat-label>
             <mat-select formControlName="state">
@@ -32,92 +34,56 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-label>Prix</mat-label>
-          <mat-select [(value)]="selectedAmountType" name="amount">
-            <mat-option
-              *ngFor="let amountType of amounts"
-              [value]="amountType.value"
-            >
-              {{ amountType.viewValue }}</mat-option
-            >
-          </mat-select>
-
-          <mat-form-field>
-            <input
-              *ngIf="selectedAmountType == 'day'"
-              matInput
-              type="number"
-              min="0"
-              class="example-right-align"
-              formControlName="amountPerDay"
-            />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input
-              *ngIf="selectedAmountType == 'week'"
-              matInput
-              type="number"
-              min="0"
-              class="example-right-align"
-              formControlName="amoutPerWeek"
-            />
-          </mat-form-field>
-          <mat-form-field>
-            <input
-              *ngIf="selectedAmountType == 'month'"
-              matInput
-              type="number"
-              min="0"
-              class="example-right-align"
-              formControlName="amoutPerMonth"
-            />
-
-            <!-- <span matSuffix>&nbsp;€</span> -->
-            <mat-error>{{ errors.amountPerDay }}</mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
+      <div
+        fxLayout="row"
+        fxLayoutGap="12px"
+        fxLayout.lt-md="column"
+        fxLayoutGap.lt-md="0"
+      >
+        <div fxFlex="calc(65%-12px)">
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Rue</mat-label>
             <input matInput formControlName="street" />
             <mat-error>{{ errors.street }}</mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width-input" appearance="outline">
-            <mat-label>N°</mat-label>
-            <input matInput formControlName="number" />
-            <mat-error>{{ errors.number }}</mat-error>
-          </mat-form-field>
+        <div
+          fxLayout="row"
+          fxLayoutGap="12px"
+          fxLayout.lt-md="row"
+          fxLayoutGap.lt-md="12px"
+          fxFlex="calc(35%-15px)"
+        >
+          <div fxFlex="calc(50%-12px)">
+            <mat-form-field class="full-width-input" appearance="outline">
+              <mat-label>N°</mat-label>
+              <input matInput formControlName="number" />
+              <mat-error>{{ errors.number }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="calc(50%-12px)">
+            <mat-form-field class="full-width-input" appearance="outline">
+              <mat-label>Boîte</mat-label>
+              <input matInput placeholder="Optionnel" formControlName="box" />
+              <mat-error>{{ errors.box }}</mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width-input" appearance="outline">
-            <mat-label>Boîte</mat-label>
-            <input matInput formControlName="box" />
-            <mat-error>{{ errors.box }}</mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
+      <div
+        fxLayout="row"
+        fxLayoutGap="12px"
+        fxLayout.lt-md="column"
+        fxLayoutGap.lt-md="0"
+      >
+        <div fxFlex="35">
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Code postal</mat-label>
             <input matInput formControlName="postCode" />
             <mat-error>{{ errors.postCode }}</mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
+        <div fxFlex="65">
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Ville</mat-label>
             <input matInput formControlName="city" />
@@ -125,8 +91,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div>
+        <div>
           <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Section</mat-label>
             <mat-select
@@ -141,8 +107,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div>
+        <div>
           <mat-form-field
             class="full-width-input"
             appearance="outline"
@@ -160,8 +126,33 @@
           </mat-form-field>
         </div>
       </div>
-      <div style="text-align: center">
-        <mat-card style="margin-top: 10px; width: 90%">
+      <div>
+        <div>
+          <mat-radio-group class="radio-group">
+            <mat-radio-button
+              class="radio-button"
+              *ngFor="let amount of amounts"
+              (value)="(amount.value)"
+            >
+              {{ amount.viewValue }}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field appearance="outline" *ngIf="isAmountSelected">
+            <mat-label id="example-radio-group-label">Prix</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              class="example-right-align"
+              formControlName=""
+            />
+            <span matSuffix>€</span>
+            <mat-error>{{ errors.amountPerDay }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="upload-image">
+        <mat-card class="upload-card">
           <mat-card-content>
             <mat-progress-bar
               *ngIf="imageProgress > 0"
@@ -190,7 +181,7 @@
         <input type="file" #fileUpload accept="image/*" style="display: none" />
       </div>
       <br />
-      <div>
+      <div style="text-align: center">
         <mat-spinner-button
           [options]="spinnerButtonOptions"
           [disabled]="goodForm.invalid"

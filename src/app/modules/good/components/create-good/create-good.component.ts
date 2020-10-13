@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { ImageService } from './../../services/image.service';
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
@@ -42,6 +42,7 @@ export class CreateGoodComponent implements OnInit, OnDestroy {
   sections: Section[];
   categories: Category[];
   isSectionSelected: boolean = false;
+  isAmountSelected: boolean = false;
 
   errors: any = {};
   error = false;
@@ -49,13 +50,12 @@ export class CreateGoodComponent implements OnInit, OnDestroy {
 
   srcResult: string;
 
-  //mat select
   selectedAmountType: null;
   amounts: amountTest[] = [
-    { value: 'day', viewValue: 'par jour' },
-    { value: 'week', viewValue: 'par semaine' },
-    { value: 'month', viewValue: 'par mois' },]
-
+    { value: 'amountPerDay', viewValue: 'Par jour' },
+    { value: 'amountPerWeek', viewValue: 'Par semaine' },
+    { value: 'amountPerMonth', viewValue: 'Par mois' },
+  ]
 
   spinnerButtonOptions: MatProgressButtonOptions = {
     active: false,
@@ -64,7 +64,7 @@ export class CreateGoodComponent implements OnInit, OnDestroy {
     raised: true,
     stroked: false,
     buttonColor: 'primary',
-    spinnerColor: 'primary',
+    spinnerColor: 'accent',
     fullWidth: false,
     disabled: false,
     mode: 'indeterminate',
@@ -85,17 +85,17 @@ export class CreateGoodComponent implements OnInit, OnDestroy {
     this._goodService.getCategory().subscribe((x) => (this.categories = x));
 
     this.goodForm = this._fromBuilder.group({
-      name: ['Un objet à louer', [Validators.required, Validators.maxLength(50)]],
-      description: ['Une description...', Validators.required],
-      state: ['Neuf', [Validators.required]],
-      amountPerDay: [15, [Validators.min(0), Validators.max(100000)]],
+      name: [null, [Validators.required, Validators.maxLength(50)]],
+      description: [null, Validators.required],
+      state: [null, [Validators.required]],
+      amountPerDay: [null, [Validators.min(0), Validators.max(100000)]],
       amountPerWeek: [null, [Validators.min(0), Validators.max(100000)]],
       amountPerMonth: [null, [Validators.min(0), Validators.max(100000)]],
-      street: ['Rue du test', [Validators.required, Validators.maxLength(120)]],
-      number: ['1', [Validators.required, Validators.maxLength(10)]],
+      street: [null, [Validators.required, Validators.maxLength(120)]],
+      number: [null, [Validators.required, Validators.maxLength(10)]],
       box: [null, [Validators.maxLength(10)]],
-      postCode: [1000, [Validators.required, Validators.min(1000), Validators.max(9999)]],
-      city: ['Bruxelles', [Validators.required, Validators.maxLength(50)]],
+      postCode: [null, [Validators.required, Validators.min(1000), Validators.max(9999)]],
+      city: [null, [Validators.required, Validators.maxLength(50)]],
       picture: [null, [Validators.required, Validators.maxLength(320)]],
       sectionId: [null, [Validators.required]],
       categoryId: [null, [Validators.required]],
@@ -223,4 +223,6 @@ export class CreateGoodComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+
 }

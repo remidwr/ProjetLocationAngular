@@ -1,8 +1,16 @@
-mat-card {
-  max-width: 800px;
-  margin: 2em auto;
-  text-align: center;
-  background: rgba($color: #d3d3d3, $alpha: 0.1);
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.form-style {
+  width: 100%;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
 }
 
 mat-form-field {
@@ -10,26 +18,13 @@ mat-form-field {
 }
 
 .good-card {
-  min-width: 120px;
-  margin: 20px auto;
+  margin: 20px;
+  background: rgba($color: #d3d3d3, $alpha: 0.1);
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-.col {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.col:last-child {
-  margin-right: 0;
-}
-
+// pour enlever le bouton d'augmentation et de diminution de la valeur numérique
 .example-right-align {
-  text-align: right;
+  text-align: left;
 }
 
 input.example-right-align::-webkit-outer-spin-button,
@@ -41,6 +36,7 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
+// pour la barre de progression du chargement des images
 ul,
 li {
   margin: 0;
@@ -49,7 +45,35 @@ li {
 }
 
 .resize-img {
-  max-width: 25%;
+  max-width: 120px;
   height: auto;
   margin-top: 30px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.radio-button {
+  padding-bottom: 15px;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.upload-image {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 50px;
+}
+
+.upload-card {
+  margin-top: 10px;
+  width: 70%;
+  background: rgba($color: #d3d3d3, $alpha: 0.1);
 }

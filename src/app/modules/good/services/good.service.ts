@@ -1,3 +1,4 @@
+import { UserInfo } from './../models/user-good.model';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
@@ -80,6 +81,10 @@ export class GoodService {
 
   getCategoriesBySection(sectionId: number): Observable<Category[]> {
     return this._http.get<Category[]>(`${environment.apiUrl}/section/${sectionId}/categories`);
+  }
+
+  getUserByGood(goodId: number): Observable<UserInfo> {
+    return this._http.get<UserInfo>(`${environment.apiUrl}/good/${goodId}/user`);
   }
 
   errorHandler(error) {

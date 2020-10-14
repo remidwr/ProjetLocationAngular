@@ -23,6 +23,8 @@ export class GetGoodsComponent implements OnInit, OnDestroy {
       next: dataFromService => this.goods = dataFromService,
       error: error => console.log(error.message)
     })
+
+    // this._goodService.getUserByGood()
   }
 
   ngOnDestroy(): void {

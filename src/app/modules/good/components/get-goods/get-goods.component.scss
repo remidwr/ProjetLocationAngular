@@ -1,4 +1,4 @@
-.example-header-image {
+.header-image {
   background-image: url("/assets/images/no-profile-picture.jpg");
   background-size: cover;
 }
@@ -9,7 +9,6 @@ mat-card-title {
 
 mat-card {
   min-height: 31rem;
-  // height: 31rem;
   background: rgba($color: #d3d3d3, $alpha: 0.1);
 }
 

@@ -1,0 +1,44 @@
+mat-card {
+  margin: 12px;
+  height: 97%;
+  background: rgba($color: #d3d3d3, $alpha: 0.1);
+}
+
+mat-card-header {
+  height: 25%;
+}
+
+.header-image {
+  background-image: url("/assets/images/no-profile-picture.jpg");
+  background-size: cover;
+  width: 25%;
+  height: auto;
+}
+
+.mat-card-header-text {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+mat-card-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  //   font-size: 40px;
+  font-size: 200%;
+}
+
+.mat-subheader {
+  font-size: 25px;
+}
+
+.address-size {
+  font-size: 20px;
+}

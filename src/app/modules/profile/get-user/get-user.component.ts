@@ -1,7 +1,13 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserFull } from './../models/user.model';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ProfileService } from './../services/profile.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import { first } from 'rxjs/operators';
+import { ErrorHandler } from 'src/app/helpers/error.handler';
 
 @Component({
   selector: 'profile-get-user',
@@ -9,21 +15,86 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./get-user.component.scss']
 })
 export class GetUserComponent implements OnInit, OnDestroy {
+  userForm: FormGroup;
   user: UserFull = null;
 
+  errors: any = {};
+  error = false;
+  errorMsg: string;
+
+  spinnerButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: 'Modifier',
+    spinnerSize: 19,
+    raised: true,
+    stroked: false,
+    buttonColor: 'primary',
+    spinnerColor: 'accent',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate',
+  };
+
   constructor(
+    private _formBuilder: FormBuilder,
     private _profileService: ProfileService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router,
+    private _snackBar: MatSnackBar,
+    private _errorHandler: ErrorHandler,
   ) { }
 
   ngOnInit(): void {
     this._profileService.getOne(this._authService.userValue.id).subscribe({
-      next: dataFromService => this.user = dataFromService,
+      next: dataFromService => {
+        this.user = dataFromService;
+        this.userForm = this._formBuilder.group({
+          firstName: [{ value: this.user.firstName, disabled: true }],
+          lastName: [{ value: this.user.lastName, disabled: true }],
+          birthdate: [this.user.birthdate],
+          email: [this.user.email],
+          street: [this.user.street, [Validators.required, Validators.maxLength(120)]],
+          number: [this.user.number, [Validators.required, Validators.maxLength(10)]],
+          box: [this.user.box, [Validators.maxLength(10)]],
+          postCode: [this.user.postCode, [Validators.required]],
+          city: [this.user.city, [Validators.required, Validators.maxLength(120)]],
+          phone1: [this.user.phone1, [Validators.required, Validators.minLength(10), Validators.maxLength(12)]],
+          phone2: [this.user.phone2, [Validators.minLength(10), Validators.maxLength(12)]],
+        });
+        this._errorHandler.handleErrors(this.userForm, this.errors);
+      },
       error: error => console.log(error.message)
-    })
+    });
   }
 
   ngOnDestroy(): void {
     console.log('Component destroyed');
   }
+
+  get f() {
+    return this.userForm.controls;
+  }
+
+  onSubmit() {
+    this.spinnerButtonOptions.active = true;
+
+    this._profileService
+      .updateAddress(this._authService.userValue.id, this.userForm.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this._router.navigate(['/profil/monprofil']);
+        },
+        (error) => {
+          this._snackBar.open(error.message, 'Annuler', {
+            panelClass: ['colored-snackbar'],
+          });
+          this.spinnerButtonOptions.active = false;
+        }
+      );
+  }
+
+  // updateAddress(): void {
+  //   this._profileService.updateAddress(this._authService.userValue.id, )
+  // }
 }

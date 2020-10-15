@@ -36,8 +36,8 @@ const routes: Routes = [
   {
     path: 'profil',
     loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
-    canActivate: [AuthGuard],
-    data: { roles: [Role.User, Role.Admin, Role.SuperAdmin] }
+    // canActivate: [AuthGuard],
+    // data: { roles: [Role.User, Role.Admin, Role.SuperAdmin] }
   },
   {
     path: 'user',

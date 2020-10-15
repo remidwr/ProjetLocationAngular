@@ -15,11 +15,12 @@ mat-card-header {
 
 mat-form-field {
   display: block;
+  // background: whitesmoke;
 }
 
 .good-card {
   margin: 20px;
-  background: rgba($color: #d3d3d3, $alpha: 0.1);
+  background: white;
 }
 
 // pour enlever le bouton d'augmentation et de diminution de la valeur numérique
@@ -75,5 +76,5 @@ li {
 .upload-card {
   margin-top: 10px;
   width: 70%;
-  background: rgba($color: #d3d3d3, $alpha: 0.1);
+  background: rgb(245, 245, 245);
 }

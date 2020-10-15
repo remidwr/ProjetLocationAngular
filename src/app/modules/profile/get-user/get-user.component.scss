@@ -1,7 +1,7 @@
 mat-card {
   margin: 12px;
   height: 97%;
-  background: rgba($color: #d3d3d3, $alpha: 0.1);
+  background: white;
 }
 
 mat-card-header {
@@ -31,14 +31,35 @@ span {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  //   font-size: 40px;
   font-size: 200%;
 }
 
+.mat-list-address {
+  max-width: 100%;
+}
+
 .mat-subheader {
-  font-size: 25px;
+  padding-left: 80px;
+  font-size: 24px;
 }
 
 .address-size {
+  padding-left: 80px;
   font-size: 20px;
+}
+
+.address-space-lines {
+  padding-top: 12px;
+}
+
+.button-place {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.button-position {
+  margin-right: 40px;
+  margin-top: 35px;
 }

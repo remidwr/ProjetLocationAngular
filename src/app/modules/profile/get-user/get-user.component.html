@@ -9,17 +9,44 @@
       </mat-card-title>
     </div>
   </mat-card-header>
-  <mat-card-content fxFlex="75">
-    <mat-list fxFlex="50">
+  <mat-card-content fxLayout="column" fxFlex="75">
+    <div
+      class="mat-list-address"
+      fxLayout="column"
+      fxLayoutAlign="center"
+      fxFlex="100"
+    >
       <div mat-line class="mat-subheader">Adresse de {{ user.firstName }}</div>
-      <div class="address-size">
-        <div mat-line>Rue : {{ user.street }}</div>
-        <div mat-line>Numéro : {{ user.number }}</div>
-        <div mat-line *ngIf="user.box">Boîte : {{ user.box }}</div>
-        <div mat-line>Code postal : {{ user.postCode }}</div>
-        <div mat-line>Ville : {{ user.city }}</div>
+      <div [formGroup]="userForm" class="address-size">
+        <mat-form-field appearance="outline">
+          <mat-label>Prénom</mat-label>
+          <input matInput maxlength="50" [formControl]="f.firstName" disabled />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <input matInput maxlength="50" [formControl]="f.lastName" disabled />
+        </mat-form-field>
+        <div class="address-space-lines" mat-line>
+          <b>Numéro :</b> {{ user.number }}
+        </div>
+        <div class="address-space-lines" mat-line *ngIf="user.box">
+          <b>Boîte :</b> {{ user.box }}
+        </div>
+        <div class="address-space-lines" mat-line>
+          <b>Code postal :</b> {{ user.postCode }}
+        </div>
+        <div class="address-space-lines" mat-line>
+          <b>Ville :</b> {{ user.city }}
+        </div>
       </div>
-    </mat-list>
-    <mat-list fxFlex="50"></mat-list>
+      <div class="button-place">
+        <mat-spinner-button
+          (btnClick)="onSubmit()"
+          [options]="spinnerButtonOptions"
+          [disabled]="userForm.invalid"
+        ></mat-spinner-button>
+      </div>
+    </div>
+    <mat-list fxFlex="100"></mat-list>
   </mat-card-content>
 </mat-card>

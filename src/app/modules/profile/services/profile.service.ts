@@ -1,4 +1,4 @@
-import { Role, UserFull } from './../models/user.model';
+import { Role, UserFull, UserInfo } from './../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
@@ -33,7 +33,7 @@ export class ProfileService {
     })
   }
 
-  getOne(id): Observable<UserFull> {
+  getOne(id: number): Observable<UserFull> {
     return this._http.get<UserFull>(`${environment.apiUrl}/user/${id}`, this.HttpOptions(this.token))
       .pipe(
         catchError(this.errorHandler)
@@ -42,6 +42,13 @@ export class ProfileService {
 
   getRole(id: number): Observable<Role> {
     return this._http.get<Role>(`${environment.apiUrl}/user/${id}/role`, this.HttpOptions(this.token))
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
+  updateAddress(id: number, user: UserFull): Observable<UserInfo> {
+    return this._http.put<UserInfo>(`${environment.apiUrl}/user/${id}`, JSON.stringify(user), this.HttpOptions(this.token))
       .pipe(
         catchError(this.errorHandler)
       );

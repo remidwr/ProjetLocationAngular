@@ -14,7 +14,7 @@ export class Good {
     postCode: number;
     city: string;
     picture: string;
-    // get pictureUrl(): string { return `${environment.ressourceUrl}/${this.picture}`; }
+    userPicture: string;
     section: SectionName;
     category: CategoryName;
 }

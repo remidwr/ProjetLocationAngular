@@ -39,17 +39,12 @@ span {
 }
 
 .mat-subheader {
-  padding-left: 80px;
-  font-size: 24px;
-}
-
-.address-size {
-  padding-left: 80px;
+  padding-left: 20px;
   font-size: 20px;
 }
 
-.address-space-lines {
-  padding-top: 12px;
+.address-size {
+  padding-left: 20px;
 }
 
 .button-place {
@@ -62,4 +57,18 @@ span {
 .button-position {
   margin-right: 40px;
   margin-top: 35px;
+}
+
+// PostCode Input
+.example-right-align {
+  text-align: left;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
 }

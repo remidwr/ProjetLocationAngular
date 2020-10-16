@@ -48,6 +48,7 @@ export class ProfileService {
   }
 
   updateAddress(id: number, user: UserFull): Observable<UserInfo> {
+    console.log(user);
     return this._http.put<UserInfo>(`${environment.apiUrl}/user/${id}`, JSON.stringify(user), this.HttpOptions(this.token))
       .pipe(
         catchError(this.errorHandler)

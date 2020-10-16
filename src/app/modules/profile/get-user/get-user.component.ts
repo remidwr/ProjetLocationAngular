@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserFull } from './../models/user.model';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ProfileService } from './../services/profile.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { first } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/helpers/error.handler';
@@ -16,7 +16,7 @@ import { ErrorHandler } from 'src/app/helpers/error.handler';
 })
 export class GetUserComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
-  user: UserFull = null;
+  user: UserFull = new UserFull();
 
   errors: any = {};
   error = false;
@@ -49,17 +49,13 @@ export class GetUserComponent implements OnInit, OnDestroy {
       next: dataFromService => {
         this.user = dataFromService;
         this.userForm = this._formBuilder.group({
-          firstName: [{ value: this.user.firstName, disabled: true }],
-          lastName: [{ value: this.user.lastName, disabled: true }],
-          birthdate: [this.user.birthdate],
-          email: [this.user.email],
           street: [this.user.street, [Validators.required, Validators.maxLength(120)]],
           number: [this.user.number, [Validators.required, Validators.maxLength(10)]],
           box: [this.user.box, [Validators.maxLength(10)]],
           postCode: [this.user.postCode, [Validators.required]],
           city: [this.user.city, [Validators.required, Validators.maxLength(120)]],
           phone1: [this.user.phone1, [Validators.required, Validators.minLength(10), Validators.maxLength(12)]],
-          phone2: [this.user.phone2, [Validators.minLength(10), Validators.maxLength(12)]],
+          phone2: [this.user.phone2 === null ? '' : this.user.phone2],
         });
         this._errorHandler.handleErrors(this.userForm, this.errors);
       },
@@ -78,12 +74,17 @@ export class GetUserComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.spinnerButtonOptions.active = true;
 
+    console.log(this.userForm.value);
     this._profileService
       .updateAddress(this._authService.userValue.id, this.userForm.value)
       .pipe(first())
       .subscribe(
         (data) => {
           this._router.navigate(['/profil/monprofil']);
+          this.spinnerButtonOptions.active = false;
+          this._snackBar.open('Mise à jour réussie', 'Annuler', {
+            panelClass: ['colored-snackbar'],
+          });
         },
         (error) => {
           this._snackBar.open(error.message, 'Annuler', {
@@ -94,7 +95,7 @@ export class GetUserComponent implements OnInit, OnDestroy {
       );
   }
 
-  // updateAddress(): void {
-  //   this._profileService.updateAddress(this._authService.userValue.id, )
-  // }
+  changeImage() {
+    console.log("click");
+  }
 }

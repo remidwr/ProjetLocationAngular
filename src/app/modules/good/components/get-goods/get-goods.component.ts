@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Good } from '../../models/good.model';
 import { GoodService } from '../../services/good.service';
@@ -19,12 +20,23 @@ export class GetGoodsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this._goodService.getAll().subscribe({
-      next: dataFromService => this.goods = dataFromService,
-      error: error => console.log(error.message)
-    })
+    this._goodService.getAll()
+      .pipe(first())
+      .subscribe({
+        next: dataFromService => {
+          this.goods = dataFromService;
+          this.goods.forEach(x => this._goodService.getUserByGood(x.id)
+            .pipe(first())
+            .subscribe({
+              next: dataFromService => this.goods[x.id].userPicture = dataFromService.picture
+              ,
+              error: error => console.log(error.message)
+            }))
+        },
+        error: error => console.log(error.message)
+      })
 
-    // this._goodService.getUserByGood()
+
   }
 
   ngOnDestroy(): void {

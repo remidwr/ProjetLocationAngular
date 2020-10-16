@@ -1,6 +1,11 @@
 <mat-card fxLayout="column">
   <mat-card-header fxFlex="25">
-    <img mat-card-avatar [src]="user.picture" class="header-image" />
+    <img
+      mat-card-avatar
+      [src]="user.picture"
+      onclick="changeImage()"
+      class="header-image"
+    />
     <div class="mat-card-header-text">
       <mat-card-title fxFlex>
         <span>Profil de </span>
@@ -10,34 +15,77 @@
     </div>
   </mat-card-header>
   <mat-card-content fxLayout="column" fxFlex="75">
+    <!-- RATING -->
+    <div fxFlex="25"></div>
+    <!-- ADDRESS -->
     <div
       class="mat-list-address"
       fxLayout="column"
       fxLayoutAlign="center"
-      fxFlex="100"
+      fxFlex="75"
     >
       <div mat-line class="mat-subheader">Adresse de {{ user.firstName }}</div>
       <div [formGroup]="userForm" class="address-size">
         <mat-form-field appearance="outline">
           <mat-label>Prénom</mat-label>
-          <input matInput maxlength="50" [formControl]="f.firstName" disabled />
+          <input matInput [value]="user.firstName" disabled />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Nom</mat-label>
-          <input matInput maxlength="50" [formControl]="f.lastName" disabled />
+          <input matInput [value]="user.lastName" disabled />
         </mat-form-field>
-        <div class="address-space-lines" mat-line>
-          <b>Numéro :</b> {{ user.number }}
-        </div>
-        <div class="address-space-lines" mat-line *ngIf="user.box">
-          <b>Boîte :</b> {{ user.box }}
-        </div>
-        <div class="address-space-lines" mat-line>
-          <b>Code postal :</b> {{ user.postCode }}
-        </div>
-        <div class="address-space-lines" mat-line>
-          <b>Ville :</b> {{ user.city }}
-        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput [value]="user.email" disabled />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date de naissance</mat-label>
+          <input
+            matInput
+            [value]="user.birthdate | date: 'd/M/y':'fr-FR'"
+            disabled
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Rue</mat-label>
+          <input matInput maxlength="120" [formControl]="f.street" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Numéro</mat-label>
+          <input matInput [formControl]="f.number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Boîte</mat-label>
+          <input matInput [formControl]="f.box" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Code postal</mat-label>
+          <input
+            matInput
+            min="0"
+            type="number"
+            class="example-right-align"
+            [formControl]="f.postCode"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ville</mat-label>
+          <input matInput maxlength="120" [formControl]="f.city" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>N° téléphone principal</mat-label>
+          <input matInput maxlength="12" [formControl]="f.phone1" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>N° téléphone secondaire</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="12"
+            placeholder="Optionnel"
+            [formControl]="f.phone2"
+          />
+        </mat-form-field>
       </div>
       <div class="button-place">
         <mat-spinner-button
@@ -47,6 +95,5 @@
         ></mat-spinner-button>
       </div>
     </div>
-    <mat-list fxFlex="100"></mat-list>
   </mat-card-content>
 </mat-card>

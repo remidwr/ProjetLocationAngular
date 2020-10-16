@@ -1,4 +1,3 @@
-import { ToDateFR } from './pipes/todatefr.pipe';
 import { ProfileService } from './services/profile.service';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -17,7 +16,6 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     LayoutComponent,
     UserGoodListComponent,
     UserSettingsComponent,
-    ToDateFR
   ],
   imports: [
     CommonModule,
